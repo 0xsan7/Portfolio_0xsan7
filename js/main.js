@@ -88,7 +88,7 @@
     const key = event.key.toLowerCase();
     const focusedIndex = sections.indexOf(document.activeElement);
     const sectionIndex = focusedIndex < 0 ? currentSection() : focusedIndex;
-    if (/^[1-5]$/.test(key)) jump(Number(key) - 1);
+    if (/^[1-9]$/.test(key) && Number(key) <= sections.length) jump(Number(key) - 1);
     else if (key === 'j') jump(Math.min(sections.length - 1, sectionIndex + 1));
     else if (key === 'k') jump(Math.max(0, sectionIndex - 1));
     else if (key === 't') toggleTheme();

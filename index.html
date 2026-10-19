@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Santiago Jerald // 0xsan7. Systems security, embedded hardware, robotics, research. Project index and build log.">
+  <meta name="description" content="Santiago Jerald // 0xsan7. Systems security, embedded hardware, robotics, research. Projects, research endeavors, leadership experience.">
   <meta name="theme-color" content="#0d0e11">
   <title>0xsan7(1) - Santiago Jerald</title>
   <link rel="icon" href="assets/sprites/chip.svg" type="image/svg+xml">
@@ -30,16 +30,14 @@
           <p class="eyebrow">SANTIAGO JERALD //</p>
           <h1>0xsan7</h1>
           <p class="bio">B.Tech CSE / SRM AP.<br>Systems, security, embedded.<br>From Goa. Based in Amaravati.</p>
-          <p class="availability">[*] Undergraduate researcher</p>
+          <p class="availability">[*] Current focus: WRSN routing</p>
         </div>
         <nav aria-label="Directory" class="directory sidebar-block">
           <h2>DIRECTORY</h2>
           <p class="tree-root">~/0xsan7/</p>
-          <a class="nav-link" href="#projects"><span aria-hidden="true">|-- </span><span>[1] public_repos</span></a>
-          <a class="nav-link" href="#hardware"><span aria-hidden="true">|-- </span><span>[2] hardware_builds</span></a>
-          <a class="nav-link" href="#research"><span aria-hidden="true">|-- </span><span>[3] research_quantum</span></a>
-          <a class="nav-link" href="#leadership"><span aria-hidden="true">|-- </span><span>[4] leadership_ops</span></a>
-          <a class="nav-link" href="#log"><span aria-hidden="true">`-- </span><span>[5] scratchpad_log</span></a>
+          <a class="nav-link" href="#projects"><span aria-hidden="true">|-- </span><span>[1] Projects</span></a>
+          <a class="nav-link" href="#research"><span aria-hidden="true">|-- </span><span>[2] Research Endeavors</span></a>
+          <a class="nav-link" href="#leadership"><span aria-hidden="true">`-- </span><span>[3] Leadership Exp</span></a>
         </nav>
         <section class="sidebar-block" aria-labelledby="links-title">
           <h2 id="links-title">EXTERNAL</h2>
@@ -53,76 +51,118 @@
         <section class="sidebar-block" aria-labelledby="stack-title">
           <h2 id="stack-title">STACK</h2>
           <dl class="stack-list">
-            <dt>LANGUAGES</dt><dd>Go / C / C++ / Python<br>JavaScript / Node.js<br>HTML / CSS</dd>
+            <dt>LANGUAGES</dt><dd>Go / C / C++ / Python<br>JavaScript / TypeScript<br>Node.js / HTML / CSS</dd>
             <dt>BOARDS</dt><dd>ESP32 / STM32 / Arduino<br>Raspberry Pi / Jetson Nano</dd>
             <dt>COMPONENTS</dt><dd>MPU6050 / QTR-8RC<br>TB6612FNG / N20 motors</dd>
-            <dt>DOMAINS</dt><dd>Network + supply-chain security<br>Embedded systems / robotics<br>TinyML / Edge AI<br>RF simulation / trilateration<br>Quantum hardware architecture</dd>
+            <dt>ALGORITHMS</dt><dd>A* / Dijkstra / RRT</dd>
+            <dt>DOMAINS</dt><dd>Network + supply-chain security<br>WRSN / mobile charging<br>Embedded systems / robotics<br>TinyML / Edge AI<br>RF simulation / trilateration<br>Quantum systems (exposure)<br>Image encryption / DNA encoding</dd>
           </dl>
         </section>
         <section class="sidebar-block" aria-labelledby="keys-title">
           <h2 id="keys-title">KEYMAP</h2>
-          <dl class="keymap"><div><dt>1-5</dt><dd>jump to section</dd></div><div><dt>j / k</dt><dd>next / previous</dd></div><div><dt>e</dt><dd>expand / collapse specs</dd></div><div><dt>t</dt><dd>dark / light</dd></div></dl>
+          <dl class="keymap"><div><dt>1-3</dt><dd>jump to section</dd></div><div><dt>j / k</dt><dd>next / previous</dd></div><div><dt>e</dt><dd>expand / collapse specs</dd></div><div><dt>t</dt><dd>dark / light</dd></div></dl>
         </section>
         <p class="sidebar-foot">HTML + CSS + JS<br>No framework. No build deps.</p>
       </div>
     </aside>
     <main id="main" class="specification" tabindex="-1">
       <div class="sheet-intro"><p>PERSONAL INDEX / 2026</p><p>Code, hardware, research notes.<br>Select a row to fold its specification.</p><button id="expand-toggle" type="button" hidden>[collapse specs]</button></div>
-      <section id="projects" aria-labelledby="repos-title">
-        <header class="section-heading"><h2 id="repos-title">01 // PUBLIC_REPOS</h2><span>src: github/0xsan7</span></header>
-        <details class="spec-row" id="argus" open>
-          <summary><span class="record-id">01</span><h3>AI SOC Analyst / Argus</h3><span class="summary-stack">Python / SHAP / Gemma</span></summary>
-          <div class="spec-body"><p>Local SOC analyst console. ML threat prediction, SHAP risk attribution, Gemma triage output. Runs locally.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Python / Machine Learning / SHAP / Gemma LLM / Network Security</dd></div><div><dt>state</dt><dd>3rd runner up / Sudo Hacktober (MLH)</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/ai-soc-analyst">[source]</a> <a href="https://x.com/0xsan7/status/2110587250711072974">[demo / post]</a></dd></div></dl></div>
-        </details>
+      <section id="projects" aria-labelledby="projects-title">
+        <header class="section-heading"><h2 id="projects-title">01 // PROJECTS</h2></header>
         <details class="spec-row" id="scram" open>
-          <summary><span class="record-id">02</span><h3>SCRAM</h3><span class="summary-stack">Go / Supply-chain security</span></summary>
-          <div class="spec-body"><p>Fail-closed dependency scanner. Audits lockfiles across six ecosystems. Diffs PR dependencies. Unresolved lockfiles or unavailable vulnerability data cause failure.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Go / Lockfile Parsers / Fuzz Testing / GitHub Actions</dd></div><div><dt>state</dt><dd>v0.1.0 / CLI + CI action</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/SCRAM">[source]</a> <a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">[Go docs]</a> <a href="https://github.com/0xsan7/SCRAM/releases/tag/v0.1.0">[v0.1.0]</a></dd></div></dl></div>
+          <summary><span class="record-id">01</span><h3>SCRAM</h3><span class="summary-stack">Go / Supply-chain security</span></summary>
+          <div class="spec-body"><p>Fail-closed dependency scanner. Audits lockfiles across six ecosystems. Diffs PR dependencies. Unresolved lockfiles or unavailable vulnerability data cause failure.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Go / Lockfile Parsers / Fuzz Testing / GitHub Actions</dd></div><div><dt>state</dt><dd>v0.1.0 / CLI + CI action</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/SCRAM">[REPO -&gt;]</a> <a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">[GO DOCS -&gt;]</a> <a href="https://github.com/0xsan7/SCRAM/releases/tag/v0.1.0">[V0.1.0 -&gt;]</a></dd></div></dl></div>
+        </details>
+        <details class="spec-row" id="argus" open>
+          <summary><span class="record-id">02</span><h3>Argus</h3><span class="summary-stack">python / fastapi / react</span></summary>
+          <div class="spec-body">
+            <p>One-window-ahead network risk-scoring research prototype using UNSW-NB15, with a model-benchmarking console, optional local Gemma analyst notes, and a Chromium extension for browser-visible website signals.</p>
+            <dl class="spec-fields">
+              <div><dt>stack</dt><dd>python / fastapi / react / typescript / shap / ollama / gemma / chromium-mv3</dd></div>
+              <div><dt>tag</dt><dd>[3RD_RUNNER_UP // SUDO_HACKTOBER_MLH]</dd></div>
+              <div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/Argus">[REPO -&gt;]</a> <a href="https://argus-console.antideploy.app">[CONSOLE -&gt;]</a> <a href="https://x.com/0xsan7/status/2110587250711072974">[THREAD -&gt;]</a></dd></div>
+            </dl>
+          </div>
         </details>
         <details class="spec-row" id="spectrum" open>
           <summary><span class="record-id">03</span><h3>Spectrum Mapper</h3><span class="summary-stack">Node.js / RF simulation</span></summary>
-          <div class="spec-body"><p>2.4 GHz RF coverage simulator. Log-distance path loss, multi-wall attenuation, live heatmaps, RSSI trilateration. Drag transmitters to recalculate coverage.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Node.js / Express / HTML5 Canvas / RSSI Trilateration / RF Path-Loss Physics</dd></div><div><dt>state</dt><dd>v1.1.0 / released</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/spectrum-mapper">[source]</a> <a href="https://spectrum-mapper-demo.onrender.com">[live demo]</a> <a href="https://x.com/0xsan7/status/2105906934494732436">[thread]</a></dd></div></dl></div>
+          <div class="spec-body"><p>2.4 GHz RF coverage simulator. Log-distance path loss, multi-wall attenuation, live heatmaps, RSSI trilateration. Drag transmitters to recalculate coverage.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Node.js / Express / HTML5 Canvas / RSSI Trilateration / RF Path-Loss Physics</dd></div><div><dt>state</dt><dd>v1.1.0 / released</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/spectrum-mapper">[REPO -&gt;]</a> <a href="https://x.com/0xsan7/status/2105906934494732436">[THREAD -&gt;]</a></dd></div></dl></div>
+        </details>
+        <details class="spec-row" id="ai-soc-analyst" open>
+          <summary><span class="record-id">04</span><h3>AI SOC Analyst</h3><span class="summary-stack">typescript / mastra / mcp</span></summary>
+          <div class="spec-body">
+            <p>Agentic honeypot triage pipeline. SSH/HTTP decoys, LLM-graded severity, campaign correlation, and MCP-exposed analyst tools.</p>
+            <dl class="spec-fields">
+              <div><dt>stack</dt><dd>typescript / node.js / mastra / gemini / libsql / ssh2 / mcp</dd></div>
+              <div><dt>tag</dt><dd>[AGENTIC_SOC // HONEYPOT_TRIAGE]</dd></div>
+              <div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/AI-SOC-Analyst-Honeypot">[REPO -&gt;]</a></dd></div>
+            </dl>
+          </div>
         </details>
         <details class="spec-row" id="ascii" open>
-          <summary><span class="record-id">04</span><h3>ASCII Art Generator</h3><span class="summary-stack">Python / JS / CLI</span></summary>
-          <div class="spec-body"><p>Converts images and text to monochrome ASCII art. Outputs terminal-ready character matrices.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Python / JavaScript / Image Processing / ASCII Rendering / CLI</dd></div><div><dt>state</dt><dd>public repository</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/ascii-art-generator">[source]</a></dd></div></dl></div>
-        </details>
-      </section>
-      <section id="hardware" aria-labelledby="hardware-title">
-        <header class="section-heading"><h2 id="hardware-title">02 // HARDWARE_AND_BUILDS</h2></header>
-        <details class="spec-row" id="pulseguard" open>
-          <summary><span class="record-id">05</span><h3>PulseGuard</h3><span class="summary-stack">ESP32 / TinyML</span></summary>
-          <div class="spec-body"><p>Machine-vibration anomaly detection. MPU6050 six-axis IMU input. TinyML inference runs on the ESP32 for predictive maintenance.</p><dl class="spec-fields"><div><dt>stack</dt><dd>ESP32 / MPU6050 / C / C++ / TinyML / Edge Impulse / IoT</dd></div><div><dt>state</dt><dd>2026-01 / hardware + TinyML</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public source linked.</span></dd></div></dl></div>
+          <summary><span class="record-id">05</span><h3>ASCII Art Generator</h3><span class="summary-stack">Python / JS / CLI</span></summary>
+          <div class="spec-body"><p>Converts images and text to monochrome ASCII art. Outputs terminal-ready character matrices.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Python / JavaScript / Image Processing / ASCII Rendering / CLI</dd></div><div><dt>state</dt><dd>public repository</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/ascii-art-generator">[REPO -&gt;]</a></dd></div></dl></div>
         </details>
         <details class="spec-row" id="line-tracker" open>
           <summary><span class="record-id">06</span><h3>High-Speed Line-Tracking Robot</h3><span class="summary-stack">ESP32 / PID control</span></summary>
-          <div class="spec-body"><p>Autonomous line follower. Dual N20 gearmotors, TB6612FNG H-bridge, eight-channel Pololu QTR-8RC reflectance array. Closed-loop PID control.</p><dl class="spec-fields"><div><dt>stack</dt><dd>ESP32 / N20 Motors / TB6612FNG / Pololu QTR-8RC / PID</dd></div><div><dt>state</dt><dd>2026-02 / competition build</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public source linked.</span></dd></div></dl></div>
-        </details>
-        <details class="spec-row" id="polaroid" open>
-          <summary><span class="record-id">07</span><h3>Polaroid Audio-Lyric App</h3><span class="summary-stack">HTML / CSS / Web Audio</span></summary>
-          <div class="spec-body"><p>Photo gallery with timestamp-synchronized audio and lyrics. Polaroid photo layout. Responsive browser interface.</p><dl class="spec-fields"><div><dt>stack</dt><dd>HTML5 / CSS3 Animations / Vanilla JavaScript / Web Audio API</dd></div><div><dt>state</dt><dd>2026 spring / web build</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public source linked.</span></dd></div></dl></div>
+          <div class="spec-body"><p>Autonomous line follower. Dual N20 gearmotors, TB6612FNG H-bridge, eight-channel Pololu QTR-8RC reflectance array. Closed-loop PID control.</p><dl class="spec-fields"><div><dt>stack</dt><dd>ESP32 / N20 Motors / TB6612FNG / Pololu QTR-8RC / PID</dd></div><div><dt>state</dt><dd>2026-02 / competition build</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public repo linked.</span></dd></div></dl></div>
         </details>
       </section>
       <section id="research" aria-labelledby="research-title">
-        <header class="section-heading"><h2 id="research-title">03 // RESEARCH_AND_QUANTUM</h2></header>
-        <article class="dated-record"><p class="record-date">2026 / PRESENT</p><div><h3>Independent research lab</h3><p>Independent, code-first systems research. Security, embedded systems, Edge AI, RF simulation.</p></div></article>
-        <article class="dated-record"><p class="record-date">2026 / SUMMER</p><div><h3>NIT Goa / Research intern</h3><p>Summer research internship at the National Institute of Technology Goa.</p></div></article>
-        <article class="dated-record"><p class="record-date">2026-06</p><div><h3>Best Paper Award / Co-author</h3><p>Co-authored a conference research manuscript recognized with a Best Paper Award.</p></div></article>
-        <article class="dated-record"><p class="record-date">2026-04</p><div><h3>Qbit Force / Amaravati 1S</h3><p>Campus work on cryogenic systems and qubit architecture for the Amaravati 1S quantum computer initiative. SRM AP.</p></div></article>
+        <header class="section-heading"><h2 id="research-title">02 // RESEARCH_ENDEAVORS</h2></header>
+        <article class="dated-record">
+          <p class="record-date">SUMMER 2026</p>
+          <div>
+            <h3>Research Intern / NIT Goa</h3>
+            <p>Summer research internship under Dr. S Mini, focused on mobile charging vehicle path planning in wireless rechargeable sensor networks. Benchmarked A*, Dijkstra, and RRT on route length and computation time across 10-100-node networks, with and without obstacles. Continuing this research beyond the internship.</p>
+          </div>
+        </article>
+        <article class="dated-record">
+          <p class="record-date">2026 / ACCEPTED</p>
+          <div>
+            <h3>A Secure Image Encryption Scheme for UAV Applications Using 4D Chaotic Sequences and DNA Encoding</h3>
+            <p>Co-authored manuscript accepted at ICEC-2026, SRM University-AP, for publication in IEEE Xplore proceedings. Studies UAV image encryption using 4D chaotic sequences and dynamic DNA encoding.</p>
+          </div>
+        </article>
+        <article class="dated-record">
+          <p class="record-date">2026-04</p>
+          <div>
+            <h3><a href="https://www.linkedin.com/company/qbit-force/">Qbit Force</a> / Amaravati 1S</h3>
+            <p>Participated in the Qbit Force initiative at SRM University-AP for the Amaravati 1S quantum computer. Gained hands-on exposure to cryogenic systems, qubit architecture, and campus quantum infrastructure, with guidance from the Qbit Force team and Prof. Varsha Sambhaje.</p>
+          </div>
+        </article>
       </section>
       <section id="leadership" aria-labelledby="leadership-title">
-        <header class="section-heading"><h2 id="leadership-title">04 // LEADERSHIP_AND_OPS</h2></header>
-        <article class="dated-record"><p class="record-date">2026-02<br> TO PRESENT</p><div><h3>ACM SRM AP / Vice Chair</h3><p>Vice Chair appointment: April 2026. Organizer: ROCS 2026, Stranger Strings Hackathon, ACM India Winter School 2026.</p></div></article>
-        <article class="dated-record"><p class="record-date">2025-11<br> TO 2026-02</p><div><h3>MSC SRM AP / Lead + Interim Board</h3><p>Chapter operations. HACK MSC 2.0, quantum computing workshops, DevOps seminars, Blind Tech Hunt.</p></div></article>
-      </section>
-      <section id="log" aria-labelledby="log-title">
-        <header class="section-heading"><h2 id="log-title">05 // GIT_SCRATCHPAD_LOG</h2></header>
-        <p class="log-command">git log --oneline --graph</p>
-        <ol class="build-log">
-          <li><span class="log-graph" aria-hidden="true">*<br>|</span><div><time datetime="2026-10-15">2026-10-15</time> <a href="https://x.com/0xsan7/status/2110587250711072974">[argus]</a><p>3rd runner up, Sudo Hacktober / MLH. Local ML + SHAP + Gemma SOC console.</p></div></li>
-          <li><span class="log-graph" aria-hidden="true">*<br>|</span><div><time datetime="2026-10-02">2026-10-02</time> <a href="https://spectrum-mapper-demo.onrender.com">[spectrum-mapper]</a><p>v1.1.0. Live 2.4 GHz heatmap + RSSI trilateration.</p></div></li>
-          <li><span class="log-graph" aria-hidden="true">*<br>|</span><div><time datetime="2026-10-01">2026-10-01</time> <a href="https://x.com/0xsan7">[scratchpad]</a><p>Build log moved to X / @0xsan7.</p></div></li>
-          <li><span class="log-graph" aria-hidden="true">*</span><div><time datetime="2026-09-29">2026-09-29</time> <a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">[SCRAM]</a><p>v0.1.0 published. Fail-closed lockfile auditing across six ecosystems.</p></div></li>
-        </ol>
+        <header class="section-heading"><h2 id="leadership-title">03 // LEADERSHIP_EXP</h2></header>
+        <table class="leadership-ledger" aria-labelledby="leadership-title">
+          <colgroup><col class="date-column"><col></colgroup>
+          <thead><tr><th scope="col">DATE</th><th scope="col">ORGANIZATION &amp; ROLE PROGRESSION</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="record-date"><time datetime="2026-02">Feb 2026</time><br>- Present</td>
+              <td>
+                <h3>ACM Student Chapter, SRM AP</h3>
+                <p class="role-progression"><span>[MEMBER]</span> -&gt; <span>[VICE_CHAIR]</span></p>
+                <p>Joined as a Member in February 2026. Appointed Vice Chair in April 2026.</p>
+                <ul class="operations-list">
+                  <li>Hosted <strong>Stranger Strings</strong>, a flagship campus hackathon. Footfall: <strong>250+ participants</strong>.</li>
+                  <li>Core organizer for <strong>ROCS 2026</strong> (Research Opportunities in Computer Science) and the <strong>ACM India Winter School 2026</strong>.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td class="record-date"><time datetime="2025-09">Sep 2025</time><br>- <time datetime="2026-02">Feb 2026</time></td>
+              <td>
+                <h3>Microsoft Student Community (MSC), SRM AP</h3>
+                <p class="role-progression"><span>[EVENTS_TEAM_MEMBER]</span> -&gt; <span>[INTERIM_BOARD]</span> -&gt; <span>[LEAD]</span></p>
+                <ul class="operations-list">
+                  <li>Spearheaded chapter operations and execution.</li>
+                  <li>Organized <strong>HACK MSC 2.0</strong>, quantum computing workshops, DevOps seminars, and the Blind Tech Hunt.</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <footer class="sheet-footer"><span>END OF INDEX</span><a href="#about">[top]</a></footer>
     </main>
