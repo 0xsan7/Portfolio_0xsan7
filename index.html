@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Santiago Jerald // 0xsan7. Systems security, embedded hardware, robotics, research. Project index and build log.">
+  <meta name="theme-color" content="#0d0e11">
+  <title>0xsan7(1) - Santiago Jerald</title>
+  <link rel="icon" href="assets/sprites/chip.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Silkscreen&display=swap" rel="stylesheet">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('theme')==='light'?'light':'dark'}catch{}</script>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">[skip to index]</a>
+<div class="index-frame">
+  <header class="statusbar">
+    <a href="#about">0xsan7(1)</a>
+    <span class="status-path">/home/san/public/index</span>
+    <button id="theme-toggle" type="button" aria-label="Switch to light theme">[<span class="theme-label">DARK</span>:T]</button>
+    <span class="status-mode">TEXT/HTML</span>
+  </header>
+  <div class="split-pane">
+    <aside class="identity-pane" id="about" aria-label="Identity and directory">
+      <div class="identity-content">
+        <div class="identity-block">
+          <p class="eyebrow">SANTIAGO JERALD //</p>
+          <h1>0xsan7</h1>
+          <p class="bio">B.Tech CSE / SRM AP.<br>Systems, security, embedded.<br>From Goa. Based in Amaravati.</p>
+          <p class="availability">[*] Undergraduate researcher</p>
+        </div>
+        <nav aria-label="Directory" class="directory sidebar-block">
+          <h2>DIRECTORY</h2>
+          <p class="tree-root">~/0xsan7/</p>
+          <a class="nav-link" href="#projects"><span aria-hidden="true">|-- </span><span>[1] public_repos</span></a>
+          <a class="nav-link" href="#hardware"><span aria-hidden="true">|-- </span><span>[2] hardware_builds</span></a>
+          <a class="nav-link" href="#research"><span aria-hidden="true">|-- </span><span>[3] research_quantum</span></a>
+          <a class="nav-link" href="#leadership"><span aria-hidden="true">|-- </span><span>[4] leadership_ops</span></a>
+          <a class="nav-link" href="#log"><span aria-hidden="true">`-- </span><span>[5] scratchpad_log</span></a>
+        </nav>
+        <section class="sidebar-block" aria-labelledby="links-title">
+          <h2 id="links-title">EXTERNAL</h2>
+          <ul class="plain-list external-links">
+            <li><a href="https://github.com/0xsan7">github.com/0xsan7 [ext]</a></li>
+            <li><a href="https://x.com/0xsan7">x.com/0xsan7 [ext]</a></li>
+            <li><a href="https://www.linkedin.com/in/santiago-jerald-6bb082381/">linkedin / santiago-jerald [ext]</a></li>
+            <li><a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">pkg.go.dev / scram [ext]</a></li>
+          </ul>
+        </section>
+        <section class="sidebar-block" aria-labelledby="stack-title">
+          <h2 id="stack-title">STACK</h2>
+          <dl class="stack-list">
+            <dt>LANGUAGES</dt><dd>Go / C / C++ / Python<br>JavaScript / Node.js<br>HTML / CSS</dd>
+            <dt>BOARDS</dt><dd>ESP32 / STM32 / Arduino<br>Raspberry Pi / Jetson Nano</dd>
+            <dt>COMPONENTS</dt><dd>MPU6050 / QTR-8RC<br>TB6612FNG / N20 motors</dd>
+            <dt>DOMAINS</dt><dd>Network + supply-chain security<br>Embedded systems / robotics<br>TinyML / Edge AI<br>RF simulation / trilateration<br>Quantum hardware architecture</dd>
+          </dl>
+        </section>
+        <section class="sidebar-block" aria-labelledby="keys-title">
+          <h2 id="keys-title">KEYMAP</h2>
+          <dl class="keymap"><div><dt>1-5</dt><dd>jump to section</dd></div><div><dt>j / k</dt><dd>next / previous</dd></div><div><dt>e</dt><dd>expand / collapse specs</dd></div><div><dt>t</dt><dd>dark / light</dd></div></dl>
+        </section>
+        <p class="sidebar-foot">HTML + CSS + JS<br>No framework. No build deps.</p>
+      </div>
+    </aside>
+    <main id="main" class="specification" tabindex="-1">
+      <div class="sheet-intro"><p>PERSONAL INDEX / 2026</p><p>Code, hardware, research notes.<br>Select a row to fold its specification.</p><button id="expand-toggle" type="button" hidden>[collapse specs]</button></div>
+      <section id="projects" aria-labelledby="repos-title">
+        <header class="section-heading"><h2 id="repos-title">01 // PUBLIC_REPOS</h2><span>src: github/0xsan7</span></header>
+        <details class="spec-row" id="argus" open>
+          <summary><span class="record-id">01</span><h3>AI SOC Analyst / Argus</h3><span class="summary-stack">Python / SHAP / Gemma</span></summary>
+          <div class="spec-body"><p>Local SOC analyst console. ML threat prediction, SHAP risk attribution, Gemma triage output. Runs locally.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Python / Machine Learning / SHAP / Gemma LLM / Network Security</dd></div><div><dt>state</dt><dd>3rd runner up / Sudo Hacktober (MLH)</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/ai-soc-analyst">[source]</a> <a href="https://x.com/0xsan7/status/2110587250711072974">[demo / post]</a></dd></div></dl></div>
+        </details>
+        <details class="spec-row" id="scram" open>
+          <summary><span class="record-id">02</span><h3>SCRAM</h3><span class="summary-stack">Go / Supply-chain security</span></summary>
+          <div class="spec-body"><p>Fail-closed dependency scanner. Audits lockfiles across six ecosystems. Diffs PR dependencies. Unresolved lockfiles or unavailable vulnerability data cause failure.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Go / Lockfile Parsers / Fuzz Testing / GitHub Actions</dd></div><div><dt>state</dt><dd>v0.1.0 / CLI + CI action</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/SCRAM">[source]</a> <a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">[Go docs]</a> <a href="https://github.com/0xsan7/SCRAM/releases/tag/v0.1.0">[v0.1.0]</a></dd></div></dl></div>
+        </details>
+        <details class="spec-row" id="spectrum" open>
+          <summary><span class="record-id">03</span><h3>Spectrum Mapper</h3><span class="summary-stack">Node.js / RF simulation</span></summary>
+          <div class="spec-body"><p>2.4 GHz RF coverage simulator. Log-distance path loss, multi-wall attenuation, live heatmaps, RSSI trilateration. Drag transmitters to recalculate coverage.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Node.js / Express / HTML5 Canvas / RSSI Trilateration / RF Path-Loss Physics</dd></div><div><dt>state</dt><dd>v1.1.0 / released</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/spectrum-mapper">[source]</a> <a href="https://spectrum-mapper-demo.onrender.com">[live demo]</a> <a href="https://x.com/0xsan7/status/2105906934494732436">[thread]</a></dd></div></dl></div>
+        </details>
+        <details class="spec-row" id="ascii" open>
+          <summary><span class="record-id">04</span><h3>ASCII Art Generator</h3><span class="summary-stack">Python / JS / CLI</span></summary>
+          <div class="spec-body"><p>Converts images and text to monochrome ASCII art. Outputs terminal-ready character matrices.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Python / JavaScript / Image Processing / ASCII Rendering / CLI</dd></div><div><dt>state</dt><dd>public repository</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/ascii-art-generator">[source]</a></dd></div></dl></div>
+        </details>
+      </section>
+      <section id="hardware" aria-labelledby="hardware-title">
+        <header class="section-heading"><h2 id="hardware-title">02 // HARDWARE_AND_BUILDS</h2></header>
+        <details class="spec-row" id="pulseguard" open>
+          <summary><span class="record-id">05</span><h3>PulseGuard</h3><span class="summary-stack">ESP32 / TinyML</span></summary>
+          <div class="spec-body"><p>Machine-vibration anomaly detection. MPU6050 six-axis IMU input. TinyML inference runs on the ESP32 for predictive maintenance.</p><dl class="spec-fields"><div><dt>stack</dt><dd>ESP32 / MPU6050 / C / C++ / TinyML / Edge Impulse / IoT</dd></div><div><dt>state</dt><dd>2026-01 / hardware + TinyML</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public source linked.</span></dd></div></dl></div>
+        </details>
+        <details class="spec-row" id="line-tracker" open>
+          <summary><span class="record-id">06</span><h3>High-Speed Line-Tracking Robot</h3><span class="summary-stack">ESP32 / PID control</span></summary>
+          <div class="spec-body"><p>Autonomous line follower. Dual N20 gearmotors, TB6612FNG H-bridge, eight-channel Pololu QTR-8RC reflectance array. Closed-loop PID control.</p><dl class="spec-fields"><div><dt>stack</dt><dd>ESP32 / N20 Motors / TB6612FNG / Pololu QTR-8RC / PID</dd></div><div><dt>state</dt><dd>2026-02 / competition build</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public source linked.</span></dd></div></dl></div>
+        </details>
+        <details class="spec-row" id="polaroid" open>
+          <summary><span class="record-id">07</span><h3>Polaroid Audio-Lyric App</h3><span class="summary-stack">HTML / CSS / Web Audio</span></summary>
+          <div class="spec-body"><p>Photo gallery with timestamp-synchronized audio and lyrics. Polaroid photo layout. Responsive browser interface.</p><dl class="spec-fields"><div><dt>stack</dt><dd>HTML5 / CSS3 Animations / Vanilla JavaScript / Web Audio API</dd></div><div><dt>state</dt><dd>2026 spring / web build</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public source linked.</span></dd></div></dl></div>
+        </details>
+      </section>
+      <section id="research" aria-labelledby="research-title">
+        <header class="section-heading"><h2 id="research-title">03 // RESEARCH_AND_QUANTUM</h2></header>
+        <article class="dated-record"><p class="record-date">2026 / PRESENT</p><div><h3>Independent research lab</h3><p>Independent, code-first systems research. Security, embedded systems, Edge AI, RF simulation.</p></div></article>
+        <article class="dated-record"><p class="record-date">2026 / SUMMER</p><div><h3>NIT Goa / Research intern</h3><p>Summer research internship at the National Institute of Technology Goa.</p></div></article>
+        <article class="dated-record"><p class="record-date">2026-06</p><div><h3>Best Paper Award / Co-author</h3><p>Co-authored a conference research manuscript recognized with a Best Paper Award.</p></div></article>
+        <article class="dated-record"><p class="record-date">2026-04</p><div><h3>Qbit Force / Amaravati 1S</h3><p>Campus work on cryogenic systems and qubit architecture for the Amaravati 1S quantum computer initiative. SRM AP.</p></div></article>
+      </section>
+      <section id="leadership" aria-labelledby="leadership-title">
+        <header class="section-heading"><h2 id="leadership-title">04 // LEADERSHIP_AND_OPS</h2></header>
+        <article class="dated-record"><p class="record-date">2026-02<br> TO PRESENT</p><div><h3>ACM SRM AP / Vice Chair</h3><p>Vice Chair appointment: April 2026. Organizer: ROCS 2026, Stranger Strings Hackathon, ACM India Winter School 2026.</p></div></article>
+        <article class="dated-record"><p class="record-date">2025-11<br> TO 2026-02</p><div><h3>MSC SRM AP / Lead + Interim Board</h3><p>Chapter operations. HACK MSC 2.0, quantum computing workshops, DevOps seminars, Blind Tech Hunt.</p></div></article>
+      </section>
+      <section id="log" aria-labelledby="log-title">
+        <header class="section-heading"><h2 id="log-title">05 // GIT_SCRATCHPAD_LOG</h2></header>
+        <p class="log-command">git log --oneline --graph</p>
+        <ol class="build-log">
+          <li><span class="log-graph" aria-hidden="true">*<br>|</span><div><time datetime="2026-10-15">2026-10-15</time> <a href="https://x.com/0xsan7/status/2110587250711072974">[argus]</a><p>3rd runner up, Sudo Hacktober / MLH. Local ML + SHAP + Gemma SOC console.</p></div></li>
+          <li><span class="log-graph" aria-hidden="true">*<br>|</span><div><time datetime="2026-10-02">2026-10-02</time> <a href="https://spectrum-mapper-demo.onrender.com">[spectrum-mapper]</a><p>v1.1.0. Live 2.4 GHz heatmap + RSSI trilateration.</p></div></li>
+          <li><span class="log-graph" aria-hidden="true">*<br>|</span><div><time datetime="2026-10-01">2026-10-01</time> <a href="https://x.com/0xsan7">[scratchpad]</a><p>Build log moved to X / @0xsan7.</p></div></li>
+          <li><span class="log-graph" aria-hidden="true">*</span><div><time datetime="2026-09-29">2026-09-29</time> <a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">[SCRAM]</a><p>v0.1.0 published. Fail-closed lockfile auditing across six ecosystems.</p></div></li>
+        </ol>
+      </section>
+      <footer class="sheet-footer"><span>END OF INDEX</span><a href="#about">[top]</a></footer>
+    </main>
+  </div>
+  <footer class="page-footer"><span>(c) 2026 Santiago Jerald</span><span>0xsan7 / personal index</span></footer>
+</div>
+</body>
+</html>
