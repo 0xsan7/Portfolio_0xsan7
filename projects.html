@@ -1,39 +1,43 @@
-<!-- Project spec rows. Live content is in index.html. -->
-<details class="spec-row" id="scram" open>
-          <summary><span class="record-id">01</span><h3>SCRAM</h3><span class="summary-stack">Go / Supply-chain security</span></summary>
-          <div class="spec-body"><p>Fail-closed dependency scanner. Audits lockfiles across six ecosystems. Diffs PR dependencies. Unresolved lockfiles or unavailable vulnerability data cause failure.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Go / Lockfile Parsers / Fuzz Testing / GitHub Actions</dd></div><div><dt>state</dt><dd>v0.1.0 / CLI + CI action</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/SCRAM">[REPO -&gt;]</a> <a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">[GO DOCS -&gt;]</a> <a href="https://github.com/0xsan7/SCRAM/releases/tag/v0.1.0">[V0.1.0 -&gt;]</a></dd></div></dl></div>
-        </details>
-<details class="spec-row" id="argus" open>
-          <summary><span class="record-id">02</span><h3>Argus</h3><span class="summary-stack">python / fastapi / react</span></summary>
-          <div class="spec-body">
-            <p>One-window-ahead network risk-scoring research prototype using UNSW-NB15, with a model-benchmarking console, optional local Gemma analyst notes, and a Chromium extension for browser-visible website signals.</p>
-            <dl class="spec-fields">
-              <div><dt>stack</dt><dd>python / fastapi / react / typescript / shap / ollama / gemma / chromium-mv3</dd></div>
-              <div><dt>tag</dt><dd>[3RD_RUNNER_UP // SUDO_HACKTOBER_MLH]</dd></div>
-              <div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/Argus">[REPO -&gt;]</a> <a href="https://argus-console.antideploy.app">[CONSOLE -&gt;]</a> <a href="https://x.com/0xsan7/status/2110587250711072974">[THREAD -&gt;]</a></dd></div>
-            </dl>
-          </div>
-        </details>
-<details class="spec-row" id="spectrum" open>
-          <summary><span class="record-id">03</span><h3>Spectrum Mapper</h3><span class="summary-stack">Node.js / RF simulation</span></summary>
-          <div class="spec-body"><p>2.4 GHz RF coverage simulator. Log-distance path loss, multi-wall attenuation, live heatmaps, RSSI trilateration. Drag transmitters to recalculate coverage.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Node.js / Express / HTML5 Canvas / RSSI Trilateration / RF Path-Loss Physics</dd></div><div><dt>state</dt><dd>v1.1.0 / released</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/spectrum-mapper">[REPO -&gt;]</a> <a href="https://x.com/0xsan7/status/2105906934494732436">[THREAD -&gt;]</a></dd></div></dl></div>
-        </details>
-<details class="spec-row" id="ai-soc-analyst" open>
-          <summary><span class="record-id">04</span><h3>AI SOC Analyst</h3><span class="summary-stack">typescript / mastra / mcp</span></summary>
-          <div class="spec-body">
-            <p>Agentic honeypot triage pipeline. SSH/HTTP decoys, LLM-graded severity, campaign correlation, and MCP-exposed analyst tools.</p>
-            <dl class="spec-fields">
-              <div><dt>stack</dt><dd>typescript / node.js / mastra / gemini / libsql / ssh2 / mcp</dd></div>
-              <div><dt>tag</dt><dd>[AGENTIC_SOC // HONEYPOT_TRIAGE]</dd></div>
-              <div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/AI-SOC-Analyst-Honeypot">[REPO -&gt;]</a></dd></div>
-            </dl>
-          </div>
-        </details>
-<details class="spec-row" id="ascii" open>
-          <summary><span class="record-id">05</span><h3>ASCII Art Generator</h3><span class="summary-stack">Python / JS / CLI</span></summary>
-          <div class="spec-body"><p>Converts images and text to monochrome ASCII art. Outputs terminal-ready character matrices.</p><dl class="spec-fields"><div><dt>stack</dt><dd>Python / JavaScript / Image Processing / ASCII Rendering / CLI</dd></div><div><dt>state</dt><dd>public repository</dd></div><div><dt>links</dt><dd class="record-links"><a href="https://github.com/0xsan7/ascii-art-generator">[REPO -&gt;]</a></dd></div></dl></div>
-        </details>
-<details class="spec-row" id="line-tracker" open>
-          <summary><span class="record-id">06</span><h3>High-Speed Line-Tracking Robot</h3><span class="summary-stack">ESP32 / PID control</span></summary>
-          <div class="spec-body"><p>Autonomous line follower. Dual N20 gearmotors, TB6612FNG H-bridge, eight-channel Pololu QTR-8RC reflectance array. Closed-loop PID control.</p><dl class="spec-fields"><div><dt>stack</dt><dd>ESP32 / N20 Motors / TB6612FNG / Pololu QTR-8RC / PID</dd></div><div><dt>state</dt><dd>2026-02 / competition build</dd></div><div><dt>links</dt><dd class="record-links"><span class="muted">No public repo linked.</span></dd></div></dl></div>
-        </details>
+<!-- Reference fragment. Live content is in index.html. -->
+<div class="project-grid"><article class="project-card" id="scram">
+      <div class="project-visual"><span class="visual-caption">FIG. 01 / SUPPLY-CHAIN SECURITY</span><svg viewBox="0 0 480 300" fill="none" class="project-diagram" aria-hidden="true"><path class="diagram-grid" d="M0 60h480M0 120h480M0 180h480M0 240h480M60 0v300M120 0v300M180 0v300M240 0v300M300 0v300M360 0v300M420 0v300"/><path class="trace" d="M240 104v42H100v46m140-46v46m0-46h140v46"/><path class="trace" d="M100 225v40h280v-40"/><rect class="signal-fill" x="183" y="58" width="114" height="46"/><text class="ink" x="240" y="86">LOCKFILE</text><rect class="node" x="59" y="192" width="82" height="34"/><rect class="node" x="199" y="192" width="82" height="34"/><rect class="node" x="339" y="192" width="82" height="34"/><text x="100" y="213">PARSE</text><text x="240" y="213">AUDIT</text><text x="380" y="213">GATE</text><circle class="signal-fill" cx="240" cy="146" r="4"/><text class="diagram-note" x="240" y="285">FAIL CLOSED / SIX ECOSYSTEMS</text></svg><span class="visual-corner">0xsan7 / 01</span></div>
+      <div class="project-copy"><div class="project-meta"><span>SUPPLY-CHAIN SECURITY</span><span>01</span></div>
+      <h3>SCRAM</h3><p class="project-description">Fail-closed dependency scanner. Audits lockfiles across six ecosystems. Diffs PR dependencies. Unresolved lockfiles or unavailable vulnerability data cause failure.</p>
+      <p class="project-stack">Go / Lockfile Parsers / Fuzz Testing / GitHub Actions</p>
+      <div class="project-bottom"><p class="project-state">v0.1.0 / CLI + CI action</p><div class="project-links"><a href="https://github.com/0xsan7/SCRAM">[REPO -&gt;]</a> <a href="https://pkg.go.dev/github.com/0xsan7/scram/cmd/scram">[GO DOCS -&gt;]</a> <a href="https://github.com/0xsan7/SCRAM/releases/tag/v0.1.0">[V0.1.0 -&gt;]</a></div></div></div>
+    </article>
+<article class="project-card" id="argus">
+      <div class="project-visual"><span class="visual-caption">FIG. 02 / NETWORK RISK RESEARCH</span><svg viewBox="0 0 480 300" fill="none" class="project-diagram" aria-hidden="true"><path class="diagram-grid" d="M0 60h480M0 120h480M0 180h480M0 240h480M60 0v300M120 0v300M180 0v300M240 0v300M300 0v300M360 0v300M420 0v300"/><path class="axis" d="M45 45v195h390M45 190h390M45 140h390M45 90h390"/><path class="trace" d="m45 210 25-12 25 7 25-40 25 18 25-48 25 20 25-34 25 14 25-62 25 22 25-39"/><path class="projection" d="m320 56 35 30 35-44 45 20"/><path class="projection" d="M320 30v210"/><circle class="signal-fill" cx="320" cy="56" r="5"/><text class="diagram-note" x="160" y="267">OBSERVED WINDOW</text><text class="signal-text diagram-note" x="380" y="267">t + 1</text><text class="diagram-note" x="240" y="23">ONE WINDOW AHEAD</text></svg><span class="visual-corner">0xsan7 / 02</span></div>
+      <div class="project-copy"><div class="project-meta"><span>NETWORK RISK RESEARCH</span><span>02</span></div>
+      <h3>Argus</h3><p class="project-description">One-window-ahead network risk-scoring research prototype using UNSW-NB15, with a model-benchmarking console, optional local Gemma analyst notes, and a Chromium extension for browser-visible website signals.</p>
+      <p class="project-stack">python / fastapi / react / typescript / shap / ollama / gemma / chromium-mv3</p>
+      <div class="project-bottom"><p class="project-state">3RD RUNNER UP / SUDO HACKTOBER MLH</p><div class="project-links"><a href="https://github.com/0xsan7/Argus">[REPO -&gt;]</a> <a href="https://argus-console.antideploy.app">[CONSOLE -&gt;]</a> <a href="https://x.com/0xsan7/status/2110587250711072974">[THREAD -&gt;]</a></div></div></div>
+    </article>
+<article class="project-card " id="spectrum">
+      <div class="project-visual"><span class="visual-caption">FIG. 03 / RF SIMULATION</span><svg viewBox="0 0 480 300" fill="none" class="project-diagram" aria-hidden="true"><path class="diagram-grid" d="M0 60h480M0 120h480M0 180h480M0 240h480M60 0v300M120 0v300M180 0v300M240 0v300M300 0v300M360 0v300M420 0v300"/><path class="node" d="M75 48h330v205H75zM230 48v95h175M75 180h100v73M300 143v110"/><circle class="rf-ring" cx="188" cy="132" r="43"/><circle class="rf-ring" cx="188" cy="132" r="75"/><circle class="rf-ring" cx="188" cy="132" r="107"/><path class="trace" d="m188 132 160 70m-160-70-73 85m73-85 165-40"/><circle class="signal-fill" cx="188" cy="132" r="7"/><path class="signal-text" d="m342 196 12 12m0-12-12 12m-239 9 12 12m0-12-12 12m238-131 12 12m0-12-12 12"/><text class="diagram-note" x="240" y="282">2.4 GHz / RSSI TRILATERATION</text></svg><span class="visual-corner">0xsan7 / 03</span></div>
+      <div class="project-copy"><div class="project-meta"><span>RF SIMULATION</span><span>03</span></div>
+      <h3>Spectrum Mapper</h3><p class="project-description">2.4 GHz RF coverage simulator. Log-distance path loss, multi-wall attenuation, live heatmaps, RSSI trilateration. Drag transmitters to recalculate coverage.</p>
+      <p class="project-stack">Node.js / Express / HTML5 Canvas / RSSI Trilateration / RF Path-Loss Physics</p>
+      <div class="project-bottom"><p class="project-state">v1.1.0 / released</p><div class="project-links"><a href="https://github.com/0xsan7/spectrum-mapper">[REPO -&gt;]</a> <a href="https://x.com/0xsan7/status/2105906934494732436">[THREAD -&gt;]</a></div></div></div>
+    </article>
+<article class="project-card " id="ai-soc-analyst">
+      <div class="project-visual"><span class="visual-caption">FIG. 04 / AGENTIC SECURITY</span><svg viewBox="0 0 480 300" fill="none" class="project-diagram" aria-hidden="true"><path class="diagram-grid" d="M0 60h480M0 120h480M0 180h480M0 240h480M60 0v300M120 0v300M180 0v300M240 0v300M300 0v300M360 0v300M420 0v300"/><rect class="node" x="30" y="62" width="100" height="44"/><rect class="node" x="30" y="194" width="100" height="44"/><text x="80" y="89">SSH</text><text x="80" y="221">HTTP</text><path class="trace" d="M130 84h40v66h35m-75 66h40v-66m105 0h30v-35h45m-75 35h30v65h45"/><path class="signal-fill" d="m240 111 39 39-39 39-39-39z"/><text class="ink" x="240" y="155">LLM</text><rect class="node" x="350" y="94" width="100" height="42"/><rect class="node" x="350" y="194" width="100" height="42"/><text x="400" y="120">TRIAGE</text><text x="400" y="220">MCP</text><text class="diagram-note" x="240" y="280">DECOY / CORRELATE / INVESTIGATE</text></svg><span class="visual-corner">0xsan7 / 04</span></div>
+      <div class="project-copy"><div class="project-meta"><span>AGENTIC SECURITY</span><span>04</span></div>
+      <h3>AI SOC Analyst</h3><p class="project-description">Agentic honeypot triage pipeline. SSH/HTTP decoys, LLM-graded severity, campaign correlation, and MCP-exposed analyst tools.</p>
+      <p class="project-stack">typescript / node.js / mastra / gemini / libsql / ssh2 / mcp</p>
+      <div class="project-bottom"><p class="project-state">AGENTIC SOC / HONEYPOT TRIAGE</p><div class="project-links"><a href="https://github.com/0xsan7/AI-SOC-Analyst-Honeypot">[REPO -&gt;]</a></div></div></div>
+    </article>
+<article class="project-card " id="ascii">
+      <div class="project-visual"><span class="visual-caption">FIG. 05 / DEVELOPER TOOLS</span><svg viewBox="0 0 480 300" fill="none" class="project-diagram" aria-hidden="true"><path class="diagram-grid" d="M0 60h480M0 120h480M0 180h480M0 240h480M60 0v300M120 0v300M180 0v300M240 0v300M300 0v300M360 0v300M420 0v300"/><text class="ascii-render" x="240" y="60">. . : : + + : : . .</text><text class="ascii-render" x="240" y="88">. : + # # # # + : .</text><text class="ascii-render signal-text" x="240" y="116">: + # @ @ @ @ # + :</text><text class="ascii-render signal-text" x="240" y="144">+ # @ @ + + @ @ # +</text><text class="ascii-render signal-text" x="240" y="172">+ # @ @ + + @ @ # +</text><text class="ascii-render" x="240" y="200">: + # @ @ @ @ # + :</text><text class="ascii-render" x="240" y="228">. : + # # # # + : .</text><text class="diagram-note" x="240" y="280">IMAGE IN / CHARACTER MATRIX OUT</text></svg><span class="visual-corner">0xsan7 / 05</span></div>
+      <div class="project-copy"><div class="project-meta"><span>DEVELOPER TOOLS</span><span>05</span></div>
+      <h3>ASCII Art Generator</h3><p class="project-description">Converts images and text to monochrome ASCII art. Outputs terminal-ready character matrices.</p>
+      <p class="project-stack">Python / JavaScript / Image Processing / ASCII Rendering / CLI</p>
+      <div class="project-bottom"><p class="project-state">public repository</p><div class="project-links"><a href="https://github.com/0xsan7/ascii-art-generator">[REPO -&gt;]</a></div></div></div>
+    </article>
+<article class="project-card " id="line-tracker">
+      <div class="project-visual"><span class="visual-caption">FIG. 06 / EMBEDDED ROBOTICS</span><svg viewBox="0 0 480 300" fill="none" class="project-diagram" aria-hidden="true"><path class="diagram-grid" d="M0 60h480M0 120h480M0 180h480M0 240h480M60 0v300M120 0v300M180 0v300M240 0v300M300 0v300M360 0v300M420 0v300"/><path class="route-track" d="M-20 230h120c60 0 50-160 115-160h85c80 0 60 160 140 160h60"/><path class="projection" d="M-20 230h120c60 0 50-160 115-160h85c80 0 60 160 140 160h60"/><g transform="translate(260 70)"><rect class="signal-fill" x="-38" y="-22" width="76" height="44"/><rect class="node" x="-30" y="-34" width="20" height="12"/><rect class="node" x="-30" y="22" width="20" height="12"/><path class="ink" d="M16-12v24M23-12v24M30-12v24"/></g><text class="diagram-note" x="240" y="282">8 SENSORS / CLOSED-LOOP CONTROL</text></svg><span class="visual-corner">0xsan7 / 06</span></div>
+      <div class="project-copy"><div class="project-meta"><span>EMBEDDED ROBOTICS</span><span>06</span></div>
+      <h3>High-Speed Line-Tracking Robot</h3><p class="project-description">Autonomous line follower. Dual N20 gearmotors, TB6612FNG H-bridge, eight-channel Pololu QTR-8RC reflectance array. Closed-loop PID control.</p>
+      <p class="project-stack">ESP32 / N20 Motors / TB6612FNG / Pololu QTR-8RC / PID</p>
+      <div class="project-bottom"><p class="project-state">2026-02 / competition build</p><div class="project-links"><span class="muted">No public repo linked.</span></div></div></div>
+    </article></div>
