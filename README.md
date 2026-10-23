@@ -30,7 +30,7 @@ The TypeScript configuration supports the `@/` alias. `components.json` defines 
 
 Design reference and reuse notes: `design/reference-adaptation.md`.
 
-Run `npm run build` to check TypeScript, compile the skyline and refresh `dist/`. `python3 scripts/build.py` only copies already-built browser files. The root index and assets can also be served directly by GitHub Pages. The profile README in `github-profile/` is separate from this portfolio.
+Run `npm run build` to check TypeScript, compile the skyline and refresh `dist/`. `python3 scripts/build.py` only copies already-built browser files. The root index and assets can also be served directly for local previews; production deployment uses the scheduled Pages workflow. The profile README in `github-profile/` is separate from this portfolio.
 
 ## Mac-style section dock
 
@@ -45,6 +45,8 @@ Icons were selected from the official Lucide catalog and imported from `lucide-r
 - Original terminal portfolio: https://0xsan7.in/classic/
 - Original source snapshot: branch `archive/portfolio-before-redesign-2026-10-23` (commit `b47d185`).
 
-GitHub Pages publishes the `main` branch at the repository root. Keep `CNAME` set to `0xsan7.in`. After editing the site, run `npm ci` if dependencies changed, then `npm run build`, and commit the source plus generated CSS/JS before pushing to `main`. Pages automatically republishes the domain after a successful deployment. The `classic/` directory is the frozen original portfolio.
+GitHub Pages publishes the `dist/` artifact from `.github/workflows/deploy.yml` on each push to `main` and every hour (at minute 17 UTC). The workflow fetches the current public GitHub calendar before building, so the live graph updates without manual commits. GitHub may delay scheduled runs, and contributions must first appear in the public GitHub calendar. Scheduled workflows in public repositories can be disabled after 60 days without repository activity; re-enable this workflow in Actions if needed. Keep `CNAME` set to `0xsan7.in`. After editing the site, run `npm ci` if dependencies changed, then `npm run build`, and commit the source plus generated CSS/JS before pushing to `main`. Pages automatically republishes the domain after a successful deployment. The `classic/` directory is the frozen original portfolio.
 
 The GitHub profile README is maintained separately in `0xsan7/0xsan7`.
+
+The scheduled refresh does not create commits or inflate contribution counts. If fetching or validating GitHub data fails, deployment stops and the last successful website stays live. Run the workflow manually from Actions to request an immediate refresh.

@@ -64,7 +64,7 @@ if __name__ == '__main__':
     args.add_argument('--input', type=Path, help='Parse a previously downloaded public calendar')
     options = args.parse_args()
     html = options.input.read_text() if options.input else subprocess.run(
-        ['curl', '--fail', '--location', '--silent', '--show-error', '--max-time', '30', SOURCE],
+        ['curl', '--fail', '--location', '--silent', '--show-error', '--max-time', '30', '--retry', '3', '--retry-delay', '2', SOURCE],
         check=True, capture_output=True, text=True,
     ).stdout
     result = snapshot(html)
@@ -79,6 +79,6 @@ if __name__ == '__main__':
     markup = re.sub(r'(<span data-activity-range>).*?(</span>)',
                     lambda m: m[1] + f"Public GitHub calendar / {result['rangeStart']} to {result['rangeEnd']}" + m[2], markup)
     markup = re.sub(r'(<a data-activity-snapshot[^>]*>).*?(</a>)',
-                    lambda m: m[1] + f"Snapshot: {result['rangeEnd']} / GitHub ↗" + m[2], markup)
+                    lambda m: m[1] + f"Updated: {result['fetchedAt'][:16].replace('T', ' ')} UTC / GitHub ↗" + m[2], markup)
     index.write_text(markup)
     print(f"Saved {len(result['days'])} real days, {result['total']} contributions, through {result['rangeEnd']}.")
