@@ -23,14 +23,14 @@ function PortfolioFooter() {
     meta="© 2026"
     columns={[]}
     palette={palette}
-    crop={0.12}
+    crop={0}
     grain={0}
     dotGap={5}
     radius={65}
     fontFamily="Sora, sans-serif"
     fontWeight={700}
     monoFamily="'JetBrains Mono', monospace"
-    height="clamp(200px, 32vw, 300px)"
+    height="clamp(260px, 38vw, 360px)"
     className="portfolio-wordmark"
   />
 }

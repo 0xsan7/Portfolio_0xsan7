@@ -66,3 +66,14 @@ if (footer) {
     observer.observe(footer)
   } else load()
 }
+
+const projects = document.getElementById('projects')
+if (projects) {
+  const load = () => { import('./projects-entry').catch(() => projects.setAttribute('data-load-error', 'true')) }
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); load() }
+    }, { rootMargin: '300px' })
+    observer.observe(projects)
+  } else load()
+}

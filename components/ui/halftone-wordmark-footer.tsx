@@ -1,7 +1,7 @@
 "use client"
 
 // Halftone Wordmark Footer — a site footer whose wordmark is set enormous and
-// cropped by the bottom edge, printed as a field of halftone dots. Each dot is
+// printed as a field of halftone dots with room around every glyph. Each dot is
 // sized by how much of the letter covers its cell, so the type keeps its edges
 // at any scale. Move across it and the dots part around the pointer on springs,
 // warming in colour as they are pushed off their place; click and a shock ring
@@ -54,7 +54,7 @@ export interface HalftoneWordmarkFooterProps {
   dotGap?: number
   /** How far the pointer pushes, in CSS px. Defaults to 80. */
   radius?: number
-  /** How much of the word's cap height hangs below the bottom edge, 0–0.6. Defaults to 0.2. */
+  /** How much of the word's cap height hangs below the bottom edge, 0–0.6. Defaults to 0. */
   crop?: number
   /** Print grain over everything, 0–1. Defaults to 0.5. */
   grain?: number
@@ -183,7 +183,7 @@ export default function HalftoneWordmarkFooter({
   palette,
   dotGap = 6,
   radius = 80,
-  crop = 0.2,
+  crop = 0,
   grain = 0.5,
   interactive = true,
   fontFamily = SANS_STACK,
@@ -242,14 +242,21 @@ export default function HalftoneWordmarkFooter({
       const face = o.fontWeight + " 100px " + o.fontFamily
       m.font = face
       const word = o.wordmark || " "
-      const fit = hwfFitSize(m.measureText(word).width, w * 1.02)
+      const measured = m.measureText(word)
+      const inset = Math.max(14, Math.min(28, w * 0.035))
+      const rule = root.querySelector(".hwf-rule")
+      const contentTop = rule ? rule.getBoundingClientRect().bottom - rect.top + 18 : inset
+      const availableHeight = Math.max(1, h - contentTop - inset)
+      const measuredHeight = (measured.actualBoundingBoxAscent || 72) + (measured.actualBoundingBoxDescent || 0)
+      const fit = Math.min(hwfFitSize(measured.width, w - inset * 2), availableHeight / measuredHeight * 100)
       m.font = o.fontWeight + " " + fit + "px " + o.fontFamily
       const box = m.measureText(word)
       const cap = box.actualBoundingBoxAscent || fit * 0.72
+      const descent = box.actualBoundingBoxDescent || 0
       const c = Math.max(0, Math.min(0.6, o.crop))
       m.fillStyle = "#000"
       m.textBaseline = "alphabetic"
-      m.fillText(word, (w - box.width) / 2, h + cap * c)
+      m.fillText(word, (w - box.width) / 2, h - inset - descent + cap * c)
       const img = m.getImageData(0, 0, w, h).data
 
       const gap = Math.max(3, o.dotGap)

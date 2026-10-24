@@ -54,4 +54,9 @@ The scheduled refresh does not create commits or inflate contribution counts. If
 
 ## Halftone footer
 
-`components/ui/halftone-wordmark-footer.tsx` integrates the supplied React canvas component. `js/footer-entry.tsx` sets the wordmark to `0xsan7`, retains the existing identity, copyright and back-to-top action, and uses the active portfolio colors. It mounts near the viewport through the shared React runtime. The canvas rests when idle, pauses offscreen or in hidden tabs, respects reduced motion and updates when the theme changes. No additional dependency or media asset is required.
+`components/ui/halftone-wordmark-footer.tsx` integrates the supplied React canvas component. `js/footer-entry.tsx` sets the wordmark to `0xsan7`, retains the existing identity, copyright and back-to-top action, and uses the active portfolio colors. The full wordmark is fitted inside the canvas with clear bottom and side margins. It mounts near the viewport through the shared React runtime. The canvas rests when idle, pauses offscreen or in hidden tabs, respects reduced motion and updates when the theme changes. No additional dependency or media asset is required.
+
+
+## Project folders
+
+`components/ui/glass-folder-cards.tsx` adapts the supplied folder geometry, front hinge and file fan for project navigation. `js/projects-entry.tsx` reads the existing project titles, diagrams and links from the HTML; descriptions, stack lists and normal link buttons stay visible. The hardware folder links to its existing build notes. `styles/glass-folder-cards.css` uses the portfolio's active neutral and amber colors, with keyboard opening, Escape/outside close, inert closed links, touch support and reduced motion. The integration omits the example artwork generator, file upload/add controls and sample menus. No new dependency or image asset is required.

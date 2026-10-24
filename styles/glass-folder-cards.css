@@ -1,0 +1,47 @@
+/* The supplied folder's hinge and file fan, using the portfolio palette. */
+.project-visual.project-folder-visual { aspect-ratio: auto; overflow: visible; border: 0; background: transparent; display: grid; place-items: center; padding: 16px 0 4px; }
+.gf-root { --gf-hinge: 0deg; --gf-lift: 40px; --gf-spread: 0px; --gf-fan: 0deg; --gf-stack: 12px; position: relative; isolation: isolate; flex: none; font-family: var(--sans); }
+.gf-stage { position: absolute; left: 0; top: 0; width: 340px; height: 272px; transform-origin: 0 0; }
+.gf-back { position: absolute; inset: 0; overflow: hidden; background: var(--raised); }
+.gf-back-tab { position: absolute; top: 14px; right: 22px; color: var(--accent); font: 9px/1.5 var(--mono); letter-spacing: .5px; }
+.gf-project-preview { position: absolute; inset: 35px 12px 4px; display: grid; place-items: center; opacity: .75; }
+.gf-project-preview .project-diagram { width: 100%; height: 100%; margin: 0; transform: none !important; transition: none; }
+.gf-rim { position: absolute; left: 0; top: 0; max-width: none; fill: none; pointer-events: none; overflow: visible; }
+.gf-rim path { stroke: var(--border); stroke-width: 1.2; }
+.gf-back-rim { width: 340px; height: 272px; }
+.gf-front { position: absolute; left: 0; top: 74px; width: 340px; height: 198px; z-index: 10; transform-origin: 50% 100%; transform: perspective(760px) rotateX(var(--gf-hinge)); transition: transform 180ms ease-out; }
+.gf-tint { position: absolute; inset: 0; background: linear-gradient(180deg,color-mix(in srgb,var(--surface) 65%,transparent),color-mix(in srgb,var(--surface) 92%,transparent) 72%,var(--surface)); }
+.gf-front-rim { width: 340px; height: 198px; }
+.gf-hit { all: unset; position: absolute; inset: 0; z-index: 1; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.gf-front:has(.gf-hit:focus-visible) .gf-rim path { stroke: var(--accent); stroke-width: 2.5; }
+.gf-label { position: absolute; left: 26px; right: 52px; bottom: 30px; z-index: 2; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.gf-title { color: var(--fg); font: 500 19px/1.25 var(--display); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gf-meta { color: var(--muted); font: 11px/1.5 var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gf-status { position: absolute; bottom: 31px; right: 22px; z-index: 2; color: var(--accent); font: 14px/1.5 var(--mono); pointer-events: none; }
+.gf-files { position: absolute; inset: 0; z-index: 5; pointer-events: none; clip-path: inset(-200px -80px 10px -80px); }
+.gf-sheet-slot { display: contents; }
+.gf-root:not([data-open]) .gf-files { filter: blur(.6px); }
+.gf-sheet { box-sizing: border-box; position: absolute; left: 34px; top: 96px; width: 272px; height: 184px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--raised); color: var(--fg); transform-origin: 50% 100%; transform: translate(calc(var(--gf-slot) * var(--gf-spread)),calc(var(--gf-lift) - var(--gf-depth) * var(--gf-stack))) rotate(calc(var(--gf-slot) * var(--gf-fan))); transition: transform 180ms ease-out, border-color 0ms; pointer-events: none; text-decoration: none; }
+.gf-sheet-head { display: flex; justify-content: space-between; gap: 12px; margin: 16px 18px 0; }
+.gf-sheet-name { font: 500 14px/1.5 var(--mono); }
+.gf-sheet-arrow { color: var(--accent); font-size: 19px; line-height: 1; }
+.gf-sheet-meta { display: block; margin: 5px 18px 0; color: var(--muted); font: 11px/1.5 var(--mono); }
+.gf-file-mark { display: block; margin: 15px 18px 0; color: var(--accent); font: 24px/1 var(--mono); }
+.gf-lines { display: flex; flex-direction: column; gap: 7px; margin: 16px 18px 0; }
+.gf-lines i { display: block; height: 1px; width: 90%; background: var(--border); }
+.gf-lines i:nth-child(2) { width: 72%; }
+.gf-lines i:nth-child(3) { width: 82%; }
+@media (hover: hover) and (pointer: fine) {
+  .gf-root:hover, .gf-root:focus-within { --gf-hinge: -10deg; --gf-lift: -20px; --gf-spread: 4px; --gf-fan: 1.2deg; --gf-stack: 8px; }
+}
+.gf-root[data-open] { --gf-hinge: -24deg; --gf-lift: -80px; --gf-spread: 28px; --gf-fan: 4deg; --gf-stack: 29px; }
+.gf-root[data-open] .gf-sheet { pointer-events: auto; }
+.gf-root[data-open] .gf-sheet:is(:hover,:focus-visible) { border-color: var(--accent); outline: 1px solid var(--accent); outline-offset: 2px; transform: translate(calc(var(--gf-slot) * var(--gf-spread)),calc(var(--gf-lift) - var(--gf-depth) * var(--gf-stack) - 14px)) rotate(calc(var(--gf-slot) * var(--gf-fan))); }
+@media (prefers-reduced-motion: reduce) {
+  .gf-front, .gf-sheet { transition: none; }
+  .gf-root:hover:not([data-open]), .gf-root:focus-within:not([data-open]) { --gf-hinge: 0deg; --gf-lift: 40px; --gf-spread: 0px; --gf-fan: 0deg; --gf-stack: 12px; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .gf-front { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .gf-tint { background: var(--surface); }
+}
