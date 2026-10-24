@@ -1,6 +1,6 @@
 # Santiago Jerald / 0xsan7
 
-A static HTML portfolio with vanilla JavaScript controls and isolated React dock and contribution skyline components. A compact night-city masthead, framed cat avatar, dotted blueprint guides and a narrow reading column introduce the existing projects, research and leadership experience.
+A static HTML portfolio with vanilla JavaScript controls and isolated React dock and contribution skyline components. A compact autumn animation masthead, framed cat avatar, dotted blueprint guides and a narrow reading column introduce the existing projects, research and leadership experience.
 
 ## Local preview
 
@@ -12,7 +12,7 @@ The section navigation is a bottom Mac-style dock with eight monochrome Lucide i
 
 Use the command button or Cmd/Ctrl+K to search sections and copy the contact email. Arrow keys navigate the menu, Enter selects, and Escape closes it. The theme button switches between dark and light colors and remembers the choice locally. The banner clock displays the current time in India; it pauses while the tab is hidden. Reduced motion disables decorative hover movement. All content and normal links work without JavaScript.
 
-`index.html` contains content, `css/style.css` contains the portfolio presentation, and `js/main.js` contains navigation and utility controls. The dock and skyline share one React runtime through `js/portfolio-ui.tsx`; the canvas initializes only when its section approaches the viewport. Its data is bundled locally; visitors make no contribution API requests. Google Fonts supplies Space Grotesk and JetBrains Mono, with system fallbacks. Photos use the supplied city and cat images; no generative image assets are used.
+`index.html` contains content, `css/style.css` contains the portfolio presentation, and `js/main.js` contains navigation and utility controls. The dock and skyline share one React runtime through `js/portfolio-ui.tsx`; the canvas initializes only when its section approaches the viewport. Its data is bundled locally; visitors make no contribution API requests. Google Fonts supplies Space Grotesk and JetBrains Mono, with system fallbacks. The masthead uses the supplied autumn GIF encoded as lossless animated WebP, with a static frame for reduced-motion preferences. The cat image is user-supplied; no generative image assets are used.
 
 ## Contribution skyline
 
@@ -50,3 +50,8 @@ GitHub Pages publishes the `dist/` artifact from `.github/workflows/deploy.yml` 
 The GitHub profile README is maintained separately in `0xsan7/0xsan7`.
 
 The scheduled refresh does not create commits or inflate contribution counts. If fetching or validating GitHub data fails, deployment stops and the last successful website stays live. Run the workflow manually from Actions to request an immediate refresh.
+
+
+## Halftone footer
+
+`components/ui/halftone-wordmark-footer.tsx` integrates the supplied React canvas component. `js/footer-entry.tsx` sets the wordmark to `0xsan7`, retains the existing identity, copyright and back-to-top action, and uses the active portfolio colors. It mounts near the viewport through the shared React runtime. The canvas rests when idle, pauses offscreen or in hidden tabs, respects reduced motion and updates when the theme changes. No additional dependency or media asset is required.

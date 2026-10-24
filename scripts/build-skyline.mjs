@@ -23,4 +23,4 @@ await build({
   define: { 'process.env.NODE_ENV': '"production"' },
   legalComments: 'linked',
 })
-console.log('Built the dock and skyline with one React runtime.')
+console.log('Built the dock, skyline and footer with one React runtime.')

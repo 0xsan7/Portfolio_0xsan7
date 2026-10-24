@@ -6,8 +6,8 @@ import MacOSDock, { type DockApp } from '@/components/ui/mac-os-dock'
 // Selected from the official Lucide library; no generated icon assets.
 const apps: DockApp[] = [
   { id: 'home', name: 'Home', icon: <House /> },
-  { id: 'skills', name: 'Skills', icon: <Cpu /> },
   { id: 'about', name: 'About', icon: <UserRound /> },
+  { id: 'skills', name: 'Skills', icon: <Cpu /> },
   { id: 'projects', name: 'Projects', icon: <SquareTerminal /> },
   { id: 'research', name: 'Research', icon: <FlaskConical /> },
   { id: 'leadership', name: 'Leadership', icon: <UsersRound /> },
@@ -52,5 +52,17 @@ if (activity) {
       if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); load() }
     }, { rootMargin: '300px' })
     observer.observe(activity)
+  } else load()
+}
+
+// The footer shares the existing runtime and starts near the viewport.
+const footer = document.getElementById('wordmark-footer')
+if (footer) {
+  const load = () => { import('./footer-entry').catch(() => footer.setAttribute('data-load-error', 'true')) }
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); load() }
+    }, { rootMargin: '300px' })
+    observer.observe(footer)
   } else load()
 }

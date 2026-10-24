@@ -211,7 +211,7 @@
 
   // Share the React FlowButton's markup and styling with native controls.
   // Wrapping the original nodes preserves their labels, listeners and links.
-  const flowControls = document.querySelectorAll('button, a.button, a.intro-skip, .project-links a, a.contact-arrow, a.command-item');
+  const flowControls = document.querySelectorAll('button, a.button, .project-links a, a.contact-arrow, a.command-item');
   const arrow = (direction) => {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 24 24');
@@ -231,11 +231,10 @@
   flowControls.forEach(control => {
     if (control.classList.contains('flow-button')) return;
     const iconOnly = control.matches('#theme-toggle, .contact-arrow');
-    const compact = control.matches('.utility-button, .intro-skip, .project-links a');
+    const compact = control.matches('.utility-button, .project-links a');
     control.classList.add('flow-button', iconOnly ? 'flow-button--icon' : compact ? 'flow-button--compact' : 'flow-button--default');
     // Existing decorative trailing arrows are supplied by the shared effect.
     if (control.matches('a.button')) control.querySelectorAll('svg').forEach(icon => icon.remove());
-    if (control.matches('.intro-skip')) control.querySelector('[aria-hidden]')?.remove();
     if (control.matches('.project-links a')) {
       const label = control.textContent.trim();
       control.setAttribute('aria-label', label);
