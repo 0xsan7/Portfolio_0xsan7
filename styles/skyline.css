@@ -2,9 +2,6 @@
 @layer theme, utilities;
 @import "tailwindcss/theme.css" layer(theme) prefix(sky);
 @import "tailwindcss/utilities.css" layer(utilities) source(none) prefix(sky);
-@import "./flow-button.css";
-@import "./mac-os-dock.css";
-@import "./glass-folder-cards.css";
 @source "../components";
 
 #contribution-skyline {

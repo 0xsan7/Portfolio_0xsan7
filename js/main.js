@@ -63,7 +63,7 @@
   const list = dialog ? dialog.querySelector('.command-list') : null;
   const status = dialog ? dialog.querySelector('#command-status') : null;
   const copyEmail = dialog ? dialog.querySelector('#copy-email') : null;
-  const copyLabel = copyEmail ? copyEmail.querySelector('span') : null;
+  const copyLabel = copyEmail ? (copyEmail.querySelector('.flow-content > span') || copyEmail.querySelector('span')) : null;
   let copyResetTimer = null;
   let statusResetTimer = null;
 
@@ -224,12 +224,12 @@
     }
     return svg;
   };
-  const sizeFlowFill = element => {
-    element.style.setProperty('--flow-scale', String(Math.ceil(Math.hypot(element.offsetWidth, element.offsetHeight) / 8)));
+  const sizeFlowFill = (element, width, height) => {
+    element.style.setProperty('--flow-scale', String(Math.ceil(Math.hypot(width, height) / 8)));
   };
-  const flowResize = 'ResizeObserver' in window ? new ResizeObserver(entries => entries.forEach(entry => sizeFlowFill(entry.target))) : null;
+  const flowResize = 'ResizeObserver' in window ? new ResizeObserver(entries => entries.forEach(entry => { const box = entry.borderBoxSize?.[0]; sizeFlowFill(entry.target, box?.inlineSize ?? entry.contentRect.width, box?.blockSize ?? entry.contentRect.height); })) : null;
   flowControls.forEach(control => {
-    if (control.classList.contains('flow-button')) return;
+    if (control.classList.contains('flow-button')) { flowResize?.observe(control); return; }
     const iconOnly = control.matches('#theme-toggle, .contact-arrow');
     const compact = control.matches('.utility-button, .project-links a');
     control.classList.add('flow-button', iconOnly ? 'flow-button--icon' : compact ? 'flow-button--compact' : 'flow-button--default');
@@ -248,8 +248,45 @@
     fill.className = 'flow-fill';
     fill.setAttribute('aria-hidden', 'true');
     control.replaceChildren(...(iconOnly ? [] : [arrow('in')]), content, fill, ...(iconOnly ? [] : [arrow('out')]));
-    sizeFlowFill(control);
     flowResize?.observe(control);
   });
 
+  if (!flowResize) requestAnimationFrame(() => {
+    const sizes = [...flowControls].map(element => ({ element, rect: element.getBoundingClientRect() }));
+    sizes.forEach(({ element, rect }) => sizeFlowFill(element, rect.width, rect.height));
+  });
+
+  // Paint a small poster first. Start the same animation after critical loading.
+  const video = document.querySelector('[data-banner-video]');
+  if (video) {
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const connection = navigator.connection;
+    let visible = true, scheduled = false;
+    const sync = () => {
+      if (!visible || document.hidden || motion.matches || connection?.saveData) { video.pause(); return; }
+      if (!video.src) video.src = video.canPlayType('video/webm; codecs="vp9"') ? video.dataset.webm : video.dataset.mp4;
+      video.muted = true;
+      video.play().catch(() => {});
+    };
+    const schedule = () => {
+      if (scheduled) return;
+      scheduled = true;
+      const ready = () => { if ('requestIdleCallback' in window) requestIdleCallback(sync, { timeout: 1200 }); else setTimeout(sync, 50); };
+      if (document.readyState === 'complete') ready(); else addEventListener('load', ready, { once: true });
+    };
+    video.addEventListener('playing', () => { video.dataset.playing = 'true'; });
+    video.addEventListener('error', () => {
+      if (video.src && !video.src.endsWith('.mp4')) { video.src=video.dataset.mp4; sync(); }
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(entries => {
+        visible = entries.some(entry => entry.isIntersecting);
+        if (visible) { if (scheduled && document.readyState === 'complete') sync(); else schedule(); }
+        else video.pause();
+      }).observe(video);
+    } else schedule();
+    document.addEventListener('visibilitychange', () => { if (scheduled) sync(); });
+    motion.addEventListener('change', () => { if (motion.matches) delete video.dataset.playing; if (scheduled) sync(); });
+    connection?.addEventListener?.('change', sync);
+  }
 })();

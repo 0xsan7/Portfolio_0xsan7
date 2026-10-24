@@ -1,62 +1,58 @@
 # Santiago Jerald / 0xsan7
 
-A static HTML portfolio with vanilla JavaScript controls and isolated React dock and contribution skyline components. A compact autumn animation masthead, framed cat avatar, dotted blueprint guides and a narrow reading column introduce the existing projects, research and leadership experience.
+A static portfolio with a pitch-black default theme, warm light theme, an autumn animation, a native Mac-style dock, project folders, a contribution skyline and the `0xsan7` halftone footer. Project, research, leadership and contact content lives in `index.html`.
 
-## Local preview
+## Develop
 
-Run `python3 scripts/serve.py --port 4174`, then open http://127.0.0.1:4174/. Committed browser bundles also let the root page work directly from `index.html` or GitHub Pages. To edit the React component, run `npm ci` and `npm run build` first. `npm run dev` starts the same local server.
+Use Node.js 24 and Python 3:
 
-## Interface
+```sh
+npm ci
+npm run build
+npm run dev
+```
 
-The section navigation is a bottom Mac-style dock with eight monochrome Lucide icon tiles, cosine hover magnification, click bounce, tooltips and a scroll-synchronized active indicator. On desktop the dock stays hidden until the cursor reaches the bottom 12px of the viewport, and hides when the cursor leaves. Keyboard focus reveals it too; Escape releases focus and hides it. Touch devices keep the compact dock visible at the bottom, with safe-area spacing and room below the footer. The dock fits phones without magnification and respects reduced motion. Projects use two columns on desktop and one on mobile; all four project descriptions and links remain visible. Research and leadership use native expandable records, with the first entry in each section open initially. No portfolio content was removed or rewritten.
+Open the local HTTP preview at http://127.0.0.1:4174/. Use the local server for ES-module enhancements. Native content and normal links remain available without React. `npm test` runs the dock geometry and contribution calendar checks.
 
-Use the command button or Cmd/Ctrl+K to search sections and copy the contact email. Arrow keys navigate the menu, Enter selects, and Escape closes it. The theme button switches between dark and light colors and remembers the choice locally. The banner clock displays the current time in India; it pauses while the tab is hidden. Reduced motion disables decorative hover movement. All content and normal links work without JavaScript.
+## Build and delivery
 
-`index.html` contains content, `css/style.css` contains the portfolio presentation, and `js/main.js` contains navigation and utility controls. The dock and skyline share one React runtime through `js/portfolio-ui.tsx`; the canvas initializes only when its section approaches the viewport. Its data is bundled locally; visitors make no contribution API requests. Google Fonts supplies Space Grotesk and JetBrains Mono, with system fallbacks. The masthead uses the supplied autumn GIF encoded as lossless animated WebP, with a static frame for reduced-motion preferences. The cat image is user-supplied; no generative image assets are used.
+`scripts/build-skyline.mjs` checks in browser-ready ES modules, prerenders the dock SVGs and native button markup, and inlines primary CSS into `index.html`. Run `npm run build` after editing HTML, styles, TypeScript components or contribution data. Repeated builds do not duplicate markup.
 
-## Contribution skyline
+- `css/style.css`, `styles/flow-button.css`, `styles/mac-os-dock.css`, `styles/glass-folder-cards.css` and `styles/fonts.css` provide primary styles.
+- `styles/skyline.css` compiles the skyline's Tailwind styles into `css/skyline.generated.css`; this stylesheet loads near Activity.
+- `js/main.js` handles the theme, clock, command menu, native buttons and banner playback.
+- `js/portfolio-ui.tsx` is the small enhancement loader. `js/dock-native.ts` animates the already-rendered dock without React.
+- `js/projects-entry.tsx`, `js/skyline-entry.tsx` and `js/footer-entry.tsx` load as their sections approach the viewport. Shared hashed chunks in `js/chunks/` keep one React runtime.
+- `scripts/build.py` copies public HTML, compiled JS/CSS, assets and the frozen classic site into `dist/`.
 
-The supplied component lives in `components/ui/contribution-skyline.tsx`; its example is in `components/ui/demo.tsx`, and the portfolio entry is `js/skyline-entry.tsx`. React and React DOM render the feature, with Lucide icons for its shared FlowButton component. No provider, image asset or Next.js installation is needed. The UI supports 2D/3D views, drag-to-orbit, double-click reset, day tooltips, arrow-key exploration, legend filters, the existing theme toggle and reduced motion. The extra statistic tiles are disabled to keep the section compact.
+The project already supports TypeScript, Tailwind with `sky:` utilities, shadcn-compatible aliases in `components.json`, and the `components/ui` directory. No replacement app or provider is required.
 
-## Flow buttons
+## Media and fonts
 
-`components/ui/flow-button.tsx` provides the supplied arrow exchange and expanding circular fill, with default, compact, icon and color-swatch variants. `styles/flow-button.css` adapts it to the site's existing dark/light tokens and reduced-motion preference. Static buttons and action links get matching markup from `js/main.js`; native links, event handlers, IDs and accessible labels remain intact, without mounting a React root for each native control. The skyline uses the React component directly. Text, destinations and project data remain in the existing HTML. `components/ui/flow-button-demo.tsx` is the standalone example. No photo assets are required.
+The banner uses the user-supplied autumn GIF converted to high-quality WebM/MP4, with a small WebP poster painted first. Playback starts after critical loading and pauses offscreen or in hidden tabs. Reduced-motion and save-data preferences retain the poster. The logo uses responsive 96/192px WebP files. No generative image assets are used.
 
-`data/github-contributions.json` is a dated snapshot parsed from the account's public GitHub calendar. No synthetic activity is shown. Run `npm run refresh:activity` to download a fresh public calendar, update its visible snapshot labels and rebuild. A failed or incomplete response leaves the existing data in place. This refresh needs network access but no GitHub token.
+The same Manrope, Sora and JetBrains Mono faces are self-hosted as Latin WOFF2 variable fonts in `assets/fonts/`, alongside their licenses. The heading and body faces are preloaded. No external font stylesheet or runtime font service is needed.
 
-The TypeScript configuration supports the `@/` alias. `components.json` defines shadcn-compatible aliases and uses the standard `components/ui` directory so registry component imports have a consistent location. Tailwind CSS is configured in `styles/skyline.css`; utilities use the `sky:` prefix, and global preflight is excluded so the existing site styles stay intact. `lib/utils.ts` supplies the standard `cn` helper for future shadcn components. There is no need to scaffold a replacement app or run shadcn initialization over the existing site.
+## Interactions
 
-`npm run build:skyline` compiles the island with esbuild and Tailwind's direct compiler. Browser output is `js/portfolio-ui.generated.js` and `css/skyline.generated.css`. Regenerate these files after editing the TSX, stylesheet or data. `npm run check` checks TypeScript; `npm test` verifies calendar totals, date handling and the heatmap-to-skyline projection. React's partial-page mounting pattern is documented at https://react.dev/reference/react-dom/client/createRoot.
+The dock reveals at the bottom desktop edge and remains visible on touchscreens. It supports Tab, Left/Right, Home/End, Escape and reduced motion. Native icon markup is rendered with the official `lucide-react` library at build time; reference links are in `design/dock-icons.md`. The original React dock component remains in `components/ui/mac-os-dock.tsx` for reuse.
 
-Design reference and reuse notes: `design/reference-adaptation.md`.
+Cmd/Ctrl+K opens the command menu. Arrow keys navigate, Enter selects, and Escape closes it. The theme button remembers the selected theme locally. The India clock pauses while the tab is hidden.
 
-Run `npm run build` to check TypeScript, compile the skyline and refresh `dist/`. `python3 scripts/build.py` only copies already-built browser files. The root index and assets can also be served directly for local previews; production deployment uses the scheduled Pages workflow. The profile README in `github-profile/` is separate from this portfolio.
+`components/ui/glass-folder-cards.tsx` adapts the supplied folder shape, hinge and file fan using existing project diagrams and real links. Descriptions, stacks and normal links remain visible. Closed folder links are inert; keyboard opening, Escape/outside close, touch and reduced motion are supported. Sample artwork generation, upload/add controls and sample menus are omitted.
 
-## Mac-style section dock
+`components/ui/halftone-wordmark-footer.tsx` sets the wordmark to `0xsan7`, retains the existing identity, copyright and back-to-top action, and follows the active theme. The full wordmark fits within the canvas. The canvas sleeps when idle, offscreen or hidden and respects reduced motion.
 
-The component is `components/ui/mac-os-dock.tsx`, with pure sizing/magnification helpers in `lib/dock-math.ts`. `styles/mac-os-dock.css` uses the existing theme variables for a monochrome palette and amber active indicator. The `apps` prop supplies section IDs, labels and icon nodes; optional `onAppClick` and `openApps` props handle actions and active status. The portfolio keeps native anchor destinations and supports Tab, Left/Right, Home/End and Enter. Animations use an on-demand frame loop and stop when settled. Both dock and skyline share the compiled React bundle. No new dependency or image download is needed.
+## Contributions and deployment
 
-Icons were selected from the official Lucide catalog and imported from `lucide-react`. Source references are in `design/dock-icons.md`. No generated icons or stock photos are used.
+`data/github-contributions.json` is a validated snapshot of the public GitHub calendar. `npm run refresh:activity` fetches and rebuilds it manually. A failed or incomplete response does not publish fabricated data.
 
-
-## Published versions
+`.github/workflows/deploy.yml` fetches the calendar, builds, checks and deploys `dist/` on pushes to `main`, every hour at minute 17 UTC, and on manual dispatch. It creates no automated commits. GitHub may delay scheduled runs and disables public-repository schedules after 60 days without repository activity; re-enable the workflow in Actions if necessary. Failed refreshes or builds leave the last successful deployment live.
 
 - Current portfolio: https://0xsan7.in/
 - Original terminal portfolio: https://0xsan7.in/classic/
-- Original source snapshot: branch `archive/portfolio-before-redesign-2026-10-23` (commit `b47d185`).
+- Original source: branch `archive/portfolio-before-redesign-2026-10-23`, commit `b47d185`.
 
-GitHub Pages publishes the `dist/` artifact from `.github/workflows/deploy.yml` on each push to `main` and every hour (at minute 17 UTC). The workflow fetches the current public GitHub calendar before building, so the live graph updates without manual commits. GitHub may delay scheduled runs, and contributions must first appear in the public GitHub calendar. Scheduled workflows in public repositories can be disabled after 60 days without repository activity; re-enable this workflow in Actions if needed. Keep `CNAME` set to `0xsan7.in`. After editing the site, run `npm ci` if dependencies changed, then `npm run build`, and commit the source plus generated CSS/JS before pushing to `main`. Pages automatically republishes the domain after a successful deployment. The `classic/` directory is the frozen original portfolio.
+Keep `CNAME` set to `0xsan7.in`. GitHub Pages controls response cache lifetimes; hashed lazy chunks prevent mixing versions across deployments. The GitHub profile README is maintained separately in `0xsan7/0xsan7`.
 
-The GitHub profile README is maintained separately in `0xsan7/0xsan7`.
-
-The scheduled refresh does not create commits or inflate contribution counts. If fetching or validating GitHub data fails, deployment stops and the last successful website stays live. Run the workflow manually from Actions to request an immediate refresh.
-
-
-## Halftone footer
-
-`components/ui/halftone-wordmark-footer.tsx` integrates the supplied React canvas component. `js/footer-entry.tsx` sets the wordmark to `0xsan7`, retains the existing identity, copyright and back-to-top action, and uses the active portfolio colors. The full wordmark is fitted inside the canvas with clear bottom and side margins. It mounts near the viewport through the shared React runtime. The canvas rests when idle, pauses offscreen or in hidden tabs, respects reduced motion and updates when the theme changes. No additional dependency or media asset is required.
-
-
-## Project folders
-
-`components/ui/glass-folder-cards.tsx` adapts the supplied folder geometry, front hinge and file fan for project navigation. `js/projects-entry.tsx` reads the existing project titles, diagrams and links from the HTML; descriptions, stack lists and normal link buttons stay visible. `styles/glass-folder-cards.css` uses the portfolio's active neutral and amber colors, with keyboard opening, Escape/outside close, inert closed links, touch support and reduced motion. The integration omits the example artwork generator, file upload/add controls and sample menus. No new dependency or image asset is required.
+Design reference and adaptation notes: `design/reference-adaptation.md`. Performance measurements: `design/performance-2026-10-25.md`.

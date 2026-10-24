@@ -8,7 +8,7 @@ if dist.exists():
 dist.mkdir()
 copy2(root / 'index.html', dist / 'index.html')
 for name in ('css', 'js', 'assets'):
-    copytree(root / name, dist / name, ignore=ignore_patterns('*.tsx'))
+    copytree(root / name, dist / name, ignore=ignore_patterns('*.tsx', '*.ts'))
 for name in ('CNAME', '.nojekyll'):
     if (root / name).exists():
         copy2(root / name, dist / name)

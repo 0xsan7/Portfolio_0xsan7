@@ -380,3 +380,9 @@ kbd { font: 9px var(--mono); color: var(--quiet); }
   .portfolio-wordmark .hwf-top { padding-inline: 20px; }
   .portfolio-wordmark .hwf-rule { margin-inline: 20px; }
 }
+
+/* Fixed visual bounds keep enhancement from shifting the static content. */
+.intro-video { opacity: 0; pointer-events: none; }
+.intro-video[data-playing] { opacity: 1; }
+.js .project-card { container-type: inline-size; }
+.js .project-visual { aspect-ratio: auto; height: calc(min(340px, calc(100cqw - 24px)) * .958824 + 20px); }

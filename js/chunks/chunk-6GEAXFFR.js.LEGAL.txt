@@ -44,35 +44,6 @@ react-dom/cjs/react-dom-client.production.js:
    * LICENSE file in the root directory of this source tree.
    */
 
-lucide-react/dist/esm/shared/src/utils/toKebabCase.mjs:
-lucide-react/dist/esm/shared/src/utils/toLucideIconData.mjs:
-lucide-react/dist/esm/shared/src/utils/toCamelCase.mjs:
-lucide-react/dist/esm/shared/src/utils/toPascalCase.mjs:
-lucide-react/dist/esm/shared/src/utils/mergeClasses.mjs:
-lucide-react/dist/esm/shared/src/build/defaultAttributes.mjs:
-lucide-react/dist/esm/shared/src/build/buildLucideIconNode.mjs:
-lucide-react/dist/esm/shared/src/build/buildLucideIconForReact.mjs:
-lucide-react/dist/esm/shared/src/utils/hasA11yProp.mjs:
-lucide-react/dist/esm/context.mjs:
-lucide-react/dist/esm/Icon.mjs:
-lucide-react/dist/esm/createLucideIcon.mjs:
-lucide-react/dist/esm/icons/arrow-right.mjs:
-lucide-react/dist/esm/icons/chart-no-axes-column-increasing.mjs:
-lucide-react/dist/esm/icons/cpu.mjs:
-lucide-react/dist/esm/icons/flask-conical.mjs:
-lucide-react/dist/esm/icons/house.mjs:
-lucide-react/dist/esm/icons/mail.mjs:
-lucide-react/dist/esm/icons/square-terminal.mjs:
-lucide-react/dist/esm/icons/user-round.mjs:
-lucide-react/dist/esm/icons/users-round.mjs:
-lucide-react/dist/esm/lucide-react.mjs:
-  /**
-   * @license lucide-react v1.61.0 - ISC
-   *
-   * This source code is licensed under the ISC license.
-   * See the LICENSE file in the root directory of this source tree.
-   */
-
 react/cjs/react-jsx-runtime.production.js:
   /**
    * @license React

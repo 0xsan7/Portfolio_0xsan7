@@ -22,11 +22,11 @@
   box-shadow: none;
   cursor: pointer;
   vertical-align: middle;
-  transition: border-color 600ms cubic-bezier(.23,1,.32,1), color 600ms cubic-bezier(.23,1,.32,1), border-radius 600ms cubic-bezier(.23,1,.32,1), transform 150ms ease;
+  transition: transform 150ms ease;
 }
-.flow-button .flow-content { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transform: translateX(-7px); transition: transform 800ms ease-out; }
-.flow-button .flow-fill { position: absolute; z-index: 0; pointer-events: none; left: 50%; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: var(--flow-fg); opacity: 0; transform: translate(-50%,-50%) scale(1); transition: transform 800ms cubic-bezier(.19,1,.22,1), opacity 800ms cubic-bezier(.19,1,.22,1); }
-.flow-button .flow-arrow { position: absolute; z-index: 2; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; pointer-events: none; transition: left 800ms cubic-bezier(.34,1.56,.64,1), right 800ms cubic-bezier(.34,1.56,.64,1); }
+.flow-button .flow-content { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transform: translateX(-7px); transition: transform 180ms ease-out; }
+.flow-button .flow-fill { position: absolute; z-index: 0; pointer-events: none; left: 50%; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: var(--flow-fg); opacity: 0; transform: translate(-50%,-50%) scale(1); transition: transform 180ms cubic-bezier(.19,1,.22,1), opacity 180ms cubic-bezier(.19,1,.22,1); }
+.flow-button .flow-arrow { position: absolute; z-index: 2; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; pointer-events: none; transition: left 180ms cubic-bezier(.34,1.56,.64,1), right 180ms cubic-bezier(.34,1.56,.64,1); }
 .flow-button .flow-arrow--in { left: -25%; }
 .flow-button .flow-arrow--out { right: 12px; }
 .flow-button.flow-button:is(:hover,:focus-visible) { border-color: transparent; border-radius: 12px; color: var(--flow-bg); background: transparent; }
