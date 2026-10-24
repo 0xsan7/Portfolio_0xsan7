@@ -24,7 +24,7 @@ function PortfolioDock() {
     const update = () => {
       frame = 0
       let current: HTMLElement | undefined = sections[0]
-      const threshold = document.documentElement.clientWidth <= 600 ? 140 : 180
+      const threshold = 72
       for (const section of sections) if (section.getBoundingClientRect().top <= threshold) current = section
       if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) current = sections.at(-1)
       if (current) setActive(current.id)

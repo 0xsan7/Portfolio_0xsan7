@@ -75,7 +75,7 @@ export default function MacOSDock({ apps, onAppClick, openApps = [], className =
     else if (event.key === 'ArrowLeft') next = (index - 1 + apps.length) % apps.length
     else if (event.key === 'Home') next = 0
     else if (event.key === 'End') next = apps.length - 1
-    else if (event.key === 'Escape') { engine.current?.point(null); return }
+    else if (event.key === 'Escape') { engine.current?.point(null); links.current[index]?.blur(); return }
     else return
     event.preventDefault(); links.current[next]?.focus()
   }
