@@ -22,17 +22,37 @@ await writeFile(resolve(root, componentCSSPath), componentCSS)
 // Keep the compatibility filename and older hashed files for cached pages.
 await writeFile(resolve(root, 'css/skyline.generated.css'), componentCSS)
 await mkdir(resolve(root, 'js/chunks'), { recursive: true })
-const result = await build({
-  absWorkingDir: root,
-  entryPoints: { 'portfolio-ui.generated': 'js/portfolio-ui.tsx' },
-  outdir: 'js',
-  chunkNames: 'chunks/[name]-[hash]',
-  entryNames: '[name]-[hash]',
-  metafile: true,
-  bundle: true, splitting: true, minify: true, format: 'esm', jsx: 'automatic',
-  target: ['es2022'],
-  define: { 'process.env.NODE_ENV': '"production"', __SKYLINE_CSS__: JSON.stringify('../'+componentCSSPath) },
+const commonBuild = {
+  absWorkingDir: root, outdir: 'js', chunkNames: 'chunks/[name]-[hash]',
+  entryNames: '[name]-[hash]', metafile: true, bundle: true, minify: true,
+  format: 'esm', jsx: 'automatic', target: ['es2022'],
   legalComments: 'linked',
+}
+// Keep React's shared helpers out of the native, first-load navigation bundle.
+const features = await build({
+  ...commonBuild, splitting: true,
+  entryPoints: {
+    'projects-entry': 'js/projects-entry.tsx',
+    'skyline-entry': 'js/skyline-entry.tsx',
+    'footer-entry': 'js/footer-entry.tsx',
+  },
+  define: { 'process.env.NODE_ENV': '"production"' },
+})
+function featureURL(name) {
+  const output = Object.entries(features.metafile.outputs).find(([,info]) => info.entryPoint === `js/${name}.tsx`)?.[0]
+  if (!output) throw new Error(`Missing feature entry: ${name}`)
+  return './' + output.replace(/^js\//, '')
+}
+const result = await build({
+  ...commonBuild, splitting: false,
+  entryPoints: { 'portfolio-ui.generated': 'js/portfolio-ui.tsx' },
+  define: {
+    'process.env.NODE_ENV': '"production"',
+    __SKYLINE_CSS__: JSON.stringify('../'+componentCSSPath),
+    __PROJECT_ENTRY__: JSON.stringify(featureURL('projects-entry')),
+    __SKYLINE_ENTRY__: JSON.stringify(featureURL('skyline-entry')),
+    __FOOTER_ENTRY__: JSON.stringify(featureURL('footer-entry')),
+  },
 })
 
 const { document } = parseHTML(await readFile(resolve(root, 'index.html'), 'utf8'))

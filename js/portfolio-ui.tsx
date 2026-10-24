@@ -1,6 +1,9 @@
 import { initDock } from './dock-native'
 
 declare const __SKYLINE_CSS__: string
+declare const __PROJECT_ENTRY__: string
+declare const __SKYLINE_ENTRY__: string
+declare const __FOOTER_ENTRY__: string
 
 initDock()
 
@@ -29,6 +32,6 @@ function enhanceNear(id: string, load: () => Promise<unknown>, styles = false) {
     observer.observe(element)
   } else enhance()
 }
-enhanceNear('projects', () => import('./projects-entry'))
-enhanceNear('contribution-skyline', () => import('./skyline-entry'), true)
-enhanceNear('wordmark-footer', () => import('./footer-entry'))
+enhanceNear('projects', () => import(new URL(__PROJECT_ENTRY__, import.meta.url).href))
+enhanceNear('contribution-skyline', () => import(new URL(__SKYLINE_ENTRY__, import.meta.url).href), true)
+enhanceNear('wordmark-footer', () => import(new URL(__FOOTER_ENTRY__, import.meta.url).href))
