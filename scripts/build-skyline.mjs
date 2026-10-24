@@ -1,9 +1,10 @@
 import { build, transform } from 'esbuild'
 import { compile, optimize } from '@tailwindcss/node'
 import { Scanner } from '@tailwindcss/oxide'
-import { readFile, writeFile, mkdir, rm } from 'node:fs/promises'
+import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
+import { createHash } from 'node:crypto'
 import { parseHTML } from 'linkedom'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
@@ -14,21 +15,33 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const stylesheet = resolve(root, 'styles/skyline.css')
 const compiler = await compile(await readFile(stylesheet, 'utf8'), { base: dirname(stylesheet), from: stylesheet, onDependency() {} })
 const scanner = new Scanner({ sources: compiler.sources })
-await writeFile(resolve(root, 'css/skyline.generated.css'), optimize(compiler.build(scanner.scan()), { minify: true }).code)
-await rm(resolve(root, 'js/chunks'), { recursive: true, force: true })
+const componentCSS = optimize(compiler.build(scanner.scan()), { minify: true }).code
+const cssHash = createHash('sha256').update(componentCSS).digest('hex').slice(0,12)
+const componentCSSPath = `css/skyline.generated-${cssHash}.css`
+await writeFile(resolve(root, componentCSSPath), componentCSS)
+// Keep the compatibility filename and older hashed files for cached pages.
+await writeFile(resolve(root, 'css/skyline.generated.css'), componentCSS)
 await mkdir(resolve(root, 'js/chunks'), { recursive: true })
-await build({
+const result = await build({
   absWorkingDir: root,
   entryPoints: { 'portfolio-ui.generated': 'js/portfolio-ui.tsx' },
   outdir: 'js',
   chunkNames: 'chunks/[name]-[hash]',
+  entryNames: '[name]-[hash]',
+  metafile: true,
   bundle: true, splitting: true, minify: true, format: 'esm', jsx: 'automatic',
   target: ['es2022'],
-  define: { 'process.env.NODE_ENV': '"production"' },
+  define: { 'process.env.NODE_ENV': '"production"', __SKYLINE_CSS__: JSON.stringify('../'+componentCSSPath) },
   legalComments: 'linked',
 })
 
 const { document } = parseHTML(await readFile(resolve(root, 'index.html'), 'utf8'))
+const entry = Object.entries(result.metafile.outputs).find(([,info]) => info.entryPoint === 'js/portfolio-ui.tsx')?.[0]
+if (!entry) throw new Error('Missing enhancement entry')
+const script = [...document.querySelectorAll('script[src]')].find(node => node.getAttribute('src').startsWith('js/portfolio-ui.generated'))
+if (!script) throw new Error('Missing enhancement script tag')
+script.setAttribute('src', entry)
+script.setAttribute('type','module')
 const icons = { House, Cpu, UserRound, SquareTerminal, FlaskConical, UsersRound, ChartNoAxesColumnIncreasing, Mail }
 document.getElementById('main-nav').innerHTML = '<div class="macos-dock">' + dockItems.map(item =>
   `<div class="dock-slot"><a class="dock-link" href="#${item.id}" aria-label="${item.name}"${item.id === 'home' ? ' aria-current="location"' : ''}><span class="dock-tile">${renderToStaticMarkup(createElement(icons[item.icon], { size: 24, 'aria-hidden': true }))}</span><span class="dock-dot" aria-hidden="true"></span></a><span class="dock-label" aria-hidden="true">${item.name}</span></div>`

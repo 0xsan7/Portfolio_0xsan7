@@ -1,5 +1,7 @@
 import { initDock } from './dock-native'
 
+declare const __SKYLINE_CSS__: string
+
 initDock()
 
 let componentStyles: Promise<void> | undefined
@@ -7,7 +9,7 @@ function loadComponentStyles() {
   return componentStyles ??= new Promise<void>((resolve, reject) => {
     const link = document.createElement('link')
     link.rel = 'stylesheet'
-    link.href = new URL('../css/skyline.generated.css?v=8', import.meta.url).href
+    link.href = new URL(__SKYLINE_CSS__, import.meta.url).href
     link.onload = () => resolve()
     link.onerror = () => { componentStyles = undefined; link.remove(); reject(new Error('Component styles unavailable')) }
     document.head.append(link)

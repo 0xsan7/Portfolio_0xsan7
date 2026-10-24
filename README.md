@@ -22,7 +22,7 @@ Open the local HTTP preview at http://127.0.0.1:4174/. Use the local server for 
 - `styles/skyline.css` compiles the skyline's Tailwind styles into `css/skyline.generated.css`; this stylesheet loads near Activity.
 - `js/main.js` handles the theme, clock, command menu, native buttons and banner playback.
 - `js/portfolio-ui.tsx` is the small enhancement loader. `js/dock-native.ts` animates the already-rendered dock without React.
-- `js/projects-entry.tsx`, `js/skyline-entry.tsx` and `js/footer-entry.tsx` load as their sections approach the viewport. Shared hashed chunks in `js/chunks/` keep one React runtime.
+- `js/projects-entry.tsx`, `js/skyline-entry.tsx` and `js/footer-entry.tsx` load as their sections approach the viewport. Shared hashed chunks in `js/chunks/` keep one React runtime. Entry modules and deferred styles also have content hashes; older built assets are retained for visitors with cached pages.
 - `scripts/build.py` copies public HTML, compiled JS/CSS, assets and the frozen classic site into `dist/`.
 
 The project already supports TypeScript, Tailwind with `sky:` utilities, shadcn-compatible aliases in `components.json`, and the `components/ui` directory. No replacement app or provider is required.
@@ -45,7 +45,7 @@ Cmd/Ctrl+K opens the command menu. Arrow keys navigate, Enter selects, and Escap
 
 ## Contributions and deployment
 
-`data/github-contributions.json` is a validated snapshot of the public GitHub calendar. `npm run refresh:activity` fetches and rebuilds it manually. A failed or incomplete response does not publish fabricated data.
+`data/github-contributions.json` is a validated snapshot of the public GitHub calendar. The skyline revalidates this small same-origin JSON when its section loads, so hourly calendar refreshes do not invalidate component code. `npm run refresh:activity` fetches and rebuilds it manually. A failed or incomplete response does not publish fabricated data.
 
 `.github/workflows/deploy.yml` fetches the calendar, builds, checks and deploys `dist/` on pushes to `main`, every hour at minute 17 UTC, and on manual dispatch. It creates no automated commits. GitHub may delay scheduled runs and disables public-repository schedules after 60 days without repository activity; re-enable the workflow in Actions if necessary. Failed refreshes or builds leave the last successful deployment live.
 

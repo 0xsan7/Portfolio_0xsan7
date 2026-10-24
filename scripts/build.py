@@ -12,6 +12,8 @@ for name in ('css', 'js', 'assets'):
 for name in ('CNAME', '.nojekyll'):
     if (root / name).exists():
         copy2(root / name, dist / name)
+(dist / 'data').mkdir()
+copy2(root / 'data' / 'github-contributions.json', dist / 'data' / 'github-contributions.json')
 if (root / 'classic').exists():
     copytree(root / 'classic', dist / 'classic')
 print('Built portfolio into dist/')

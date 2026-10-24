@@ -76,7 +76,7 @@ if __name__ == '__main__':
     # Keep the no-JavaScript source labels consistent with the bundled snapshot.
     index = ROOT / 'index.html'
     markup = index.read_text()
-    markup = re.sub(r'(<span data-activity-range>).*?(</span>)',
+    markup = re.sub(r'(<span\b[^>]*\bdata-activity-range[^>]*>).*?(</span>)',
                     lambda m: m[1] + f"Public GitHub calendar / {result['rangeStart']} to {result['rangeEnd']}" + m[2], markup)
     markup = re.sub(r'(<a data-activity-snapshot[^>]*>).*?(</a>)',
                     lambda m: m[1] + f"Updated: {result['fetchedAt'][:16].replace('T', ' ')} UTC / GitHub ↗" + m[2], markup)

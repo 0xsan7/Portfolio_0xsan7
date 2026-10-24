@@ -1,7 +1,17 @@
 import * as React from 'react'
 import { createRoot } from 'react-dom/client'
 import ContributionSkyline, { type PaletteInput } from '@/components/ui/contribution-skyline'
-import activity from '../data/github-contributions.json'
+interface ActivitySnapshot {
+  profile: string
+  rangeEnd: string
+  total: number
+  days: { date: string; count: number }[]
+}
+// Separate the changing calendar from cached component code.
+const response = await fetch(new URL('data/github-contributions.json', document.baseURI), { cache: 'no-cache' })
+if (!response.ok) throw new Error('Contribution snapshot unavailable')
+const activity = await response.json() as ActivitySnapshot
+if (!Array.isArray(activity.days) || !Number.isFinite(activity.total)) throw new Error('Invalid contribution snapshot')
 
 // Match the existing amber blueprint palette in both portfolio themes.
 const palette: PaletteInput = {
