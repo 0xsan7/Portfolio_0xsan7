@@ -136,7 +136,6 @@ h1,h2,h3 { font-family: var(--display); font-weight: 600; line-height: 1.35; }
 .project-diagram { width: 87%; height: 88%; margin-top: 8px; }
 .project-diagram text { font: 11px var(--mono); fill: var(--muted); text-anchor: middle; }
 .project-diagram .diagram-note { font-size: 8px; letter-spacing: 1.2px; fill: var(--quiet); }
-.project-diagram .ascii-render { font-size: 16px; letter-spacing: 3px; }
 .diagram-grid { stroke: var(--border); stroke-width: .6; }
 .trace { stroke: var(--accent); stroke-width: 1.5; }
 .node { fill: var(--bg); stroke: var(--quiet); stroke-width: 1; }
@@ -147,7 +146,6 @@ h1,h2,h3 { font-family: var(--display); font-weight: 600; line-height: 1.35; }
 .axis { stroke: var(--quiet); }
 .projection { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 6; }
 .rf-ring { stroke: var(--quiet); stroke-width: 1; }
-.route-track { stroke: var(--border); stroke-width: 20; }
 .visual-caption, .visual-corner { position: absolute; font: 6px var(--mono); letter-spacing: .3px; color: var(--quiet); }
 .visual-caption { top: 10px; left: 12px; }
 .visual-corner { right: 12px; bottom: 9px; }
