@@ -12,7 +12,7 @@ function ProjectFolder({ host, title, files, preview }: { host: HTMLElement; tit
   }, [host])
   return <GlassFolder label={title} files={files} width={width}
     preview={<div className="gf-project-preview" dangerouslySetInnerHTML={{ __html: preview }} />}
-    meta={`${files.length} ${files.length === 1 ? 'LINK' : 'LINKS'} / CLICK TO OPEN`} />
+    meta="" />
 }
 
 for (const article of document.querySelectorAll<HTMLElement>('.project-card')) {

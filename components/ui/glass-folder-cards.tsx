@@ -47,7 +47,7 @@ export default function GlassFolder({ label, meta, files, preview, width = 340, 
     }}>
     <div className="gf-stage" style={{ transform: `translateY(${54 * scale}px) scale(${scale})` }}>
       <div className="gf-back" style={{ clipPath: `path('${BACK}')` }} aria-hidden="true">
-        {preview}<span className="gf-back-tab">0xsan7 / PROJECT FILES</span>
+        {preview}
       </div>
       <svg className="gf-rim gf-back-rim" viewBox="0 0 340 272" aria-hidden="true"><path d={BACK} /></svg>
       <div className="gf-front" style={{ clipPath: `path('${FRONT}')` }}>
@@ -55,7 +55,7 @@ export default function GlassFolder({ label, meta, files, preview, width = 340, 
         <svg className="gf-rim gf-front-rim" viewBox="0 0 340 198" aria-hidden="true"><path d={FRONT} /></svg>
         <button ref={trigger} className="gf-hit" type="button" aria-expanded={open} aria-controls={id}
           aria-label={`${open ? 'Close' : 'Open'} ${label} project links`} onClick={() => setOpen(!open)} />
-        <div className="gf-label" aria-hidden="true"><span className="gf-title">{label}</span><span className="gf-meta">{meta ?? `${files.length} project links`}</span></div>
+        <div className="gf-label" aria-hidden="true"><span className="gf-title">{label}</span>{meta && <span className="gf-meta">{meta}</span>}</div>
         <span className="gf-status" aria-hidden="true">{open ? '[-]' : '[+]'}</span>
       </div>
       <div ref={contents} id={id} className="gf-files" role="list" aria-label={`${label} links`}>
