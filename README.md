@@ -20,7 +20,7 @@ Open the local HTTP preview at http://127.0.0.1:4174/. Use the local server for 
 
 - `css/style.css`, `styles/flow-button.css`, `styles/mac-os-dock.css`, `styles/glass-folder-cards.css` and `styles/fonts.css` provide primary styles.
 - `styles/skyline.css` compiles the skyline's Tailwind styles into `css/skyline.generated.css`; this stylesheet loads near Activity.
-- `js/main.js` handles the theme, clock, command menu, native buttons and banner playback.
+- `js/main.js` handles dark-mode initialization, clock, command menu, native buttons and banner playback.
 - `js/portfolio-ui.tsx` is the small enhancement loader. `js/dock-native.ts` animates the already-rendered dock without React.
 - `js/projects-entry.tsx`, `js/skyline-entry.tsx` and `js/footer-entry.tsx` load as their sections approach the viewport. Shared hashed chunks in `js/chunks/` keep one React runtime. Entry modules and deferred styles also have content hashes; older built assets are retained for visitors with cached pages.
 - `scripts/build.py` copies public HTML, compiled JS/CSS, assets and the frozen classic site into `dist/`.
@@ -56,3 +56,5 @@ Cmd/Ctrl+K opens the command menu. Arrow keys navigate, Enter selects, and Escap
 Keep `CNAME` set to `0xsan7.in`. GitHub Pages controls response cache lifetimes; hashed lazy chunks prevent mixing versions across deployments. The GitHub profile README is maintained separately in `0xsan7/0xsan7`.
 
 Design reference and adaptation notes: `design/reference-adaptation.md`. Performance measurements: `design/performance-2026-10-25.md`.
+
+Typography uses locally hosted [DM Sans](https://fonts.google.com/specimen/DM+Sans) under the included OFL license. Stack brand logos come from [Simple Icons](https://github.com/simple-icons/simple-icons); method and component symbols use the existing Lucide set. SVGs are stored locally under `assets/stack/`.

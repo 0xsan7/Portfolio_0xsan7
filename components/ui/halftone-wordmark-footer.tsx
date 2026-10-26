@@ -80,7 +80,7 @@ const PRESETS: { [K in HalftonePreset]: HalftonePalette } = {
 }
 
 const SANS_STACK = '"Inter Tight", "Inter Variable", "Inter", "Helvetica Neue", Arial, system-ui, sans-serif'
-const MONO_STACK = '"JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace'
+const MONO_STACK = '"DM Sans", system-ui, sans-serif'
 
 // #region halftone
 // Pure helpers, lifted out and executed by tests/halftone-wordmark-footer.test.mjs.

@@ -10,9 +10,9 @@
   --guide: #242424;
   --accent: #e3b56a;
   --ink: #16110a;
-  --sans: 'Manrope', system-ui, sans-serif;
-  --display: 'Sora', var(--sans);
-  --mono: 'JetBrains Mono', monospace;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --display: var(--sans);
+  --mono: var(--sans);
   --page-width: 860px;
   font: 16px/1.7 var(--sans);
   color: var(--fg);
@@ -105,7 +105,7 @@ h1,h2,h3 { font-family: var(--display); font-weight: 600; line-height: 1.35; }
 .section-heading h2 { margin-top: 5px; }
 .section-heading h2 br { display: none; }
 .section-heading > p { font-size: 10px; color: var(--quiet); line-height: 1.6; text-align: right; }
-.section-label { flex-direction: row-reverse; align-items: center; }
+.section-label { flex-direction: row; align-items: center; }
 .section-label > span { font-size: 8px; letter-spacing: .6px; }
 .skill-groups { display: grid; grid-template-columns: 1fr; gap: 20px; }
 .skill-group { display: grid; grid-template-columns: 140px 1fr; gap: 20px; }
@@ -374,3 +374,24 @@ kbd { font: 9px var(--mono); color: var(--quiet); }
 .intro-video[data-playing] { opacity: 1; }
 .js .project-card { container-type: inline-size; }
 .js .project-visual { aspect-ratio: auto; height: calc(min(340px, calc(100cqw - 24px)) * .958824 + 20px); }
+
+/* One readable typeface, without terminal-style tracking or micro labels. */
+.eyebrow, .section-label > span, .skill-group h3, .hero-foot,
+.project-meta, .project-state, .research-meta, .timeline-date,
+.role-progression, .activity-meta, .site-footer, .command-footer,
+.intro-topline, .intro-bottomline, .art-label, .gf-back-tab, .gf-meta,
+.gf-sheet-meta, .portfolio-wordmark .hwf-top, .portfolio-wordmark .hwf-rule {
+  letter-spacing: normal;
+  text-transform: none;
+}
+.skill-group { grid-template-columns: 150px minmax(0, 1fr); gap: 20px; }
+.skill-group h3 { font-size: 14px; font-weight: 500; color: var(--muted); padding-top: 12px; }
+.skills-list { gap: 8px; }
+.skills-list > span { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; padding: 10px 12px; }
+.skills-list > span > .stack-icon { flex: 0 0 22px; width: 22px; height: 22px; color: var(--fg); }
+.skills-list > span > img.stack-icon { filter: invert(1); }
+.project-meta, .project-stack, .project-state, .research-meta, .timeline-date, .role-progression, .activity-meta { font-size: 13px; }
+@media (max-width: 600px) {
+  .skill-group { grid-template-columns: minmax(0,1fr); gap: 10px; }
+  .skill-group h3 { padding-top: 0; }
+}

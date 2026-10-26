@@ -22,9 +22,9 @@ function PortfolioFooter() {
     grain={0}
     dotGap={5}
     radius={65}
-    fontFamily="Sora, sans-serif"
+    fontFamily="DM Sans, sans-serif"
     fontWeight={700}
-    monoFamily="'JetBrains Mono', monospace"
+    monoFamily="'DM Sans', sans-serif"
     height="clamp(260px, 38vw, 360px)"
     className="portfolio-wordmark"
   />
