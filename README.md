@@ -1,6 +1,6 @@
 # Santiago Jerald / 0xsan7
 
-A static portfolio with a pitch-black default theme, warm light theme, an autumn animation, a native Mac-style dock, project folders, a contribution skyline and the `0xsan7` halftone footer. Project, research, leadership and contact content lives in `index.html`.
+A static portfolio with a permanent pitch-black theme, an autumn animation, a native Mac-style dock, project folders, a contribution skyline and the `0xsan7` halftone footer. Project, research, leadership and contact content lives in `index.html`.
 
 ## Develop
 

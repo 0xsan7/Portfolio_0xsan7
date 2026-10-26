@@ -1,38 +1,7 @@
 (() => {
   'use strict';
 
-  // Persist the selected theme when storage is available. Dark is the default.
-  const themeToggle = document.querySelector('#theme-toggle');
-  const root = document.documentElement;
-  const themeStorageKey = 'portfolio-theme';
-
-  function applyTheme(theme) {
-    const selectedTheme = theme === 'light' ? 'light' : 'dark';
-    root.dataset.theme = selectedTheme;
-    if (!themeToggle) return;
-    const lightSelected = selectedTheme === 'light';
-    themeToggle.setAttribute('aria-label', lightSelected ? 'Switch to dark theme' : 'Switch to light theme');
-    themeToggle.setAttribute('aria-pressed', String(lightSelected));
-  }
-
-  let savedTheme = null;
-  try {
-    savedTheme = window.localStorage.getItem(themeStorageKey);
-  } catch (_) {
-    // Storage can be unavailable in private or restricted browsing contexts.
-  }
-  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const nextTheme = root.dataset.theme === 'light' ? 'dark' : 'light';
-      applyTheme(nextTheme);
-      try {
-        window.localStorage.setItem(themeStorageKey, nextTheme);
-      } catch (_) {
-        // The current page still changes theme when persistence is unavailable.
-      }
-    });
-  }
+  document.documentElement.dataset.theme = 'dark';
 
   // A small local-time clock. It sleeps while the tab is hidden.
   const clocks = [...document.querySelectorAll('[data-clock]')];
@@ -230,7 +199,7 @@
   const flowResize = 'ResizeObserver' in window ? new ResizeObserver(entries => entries.forEach(entry => { const box = entry.borderBoxSize?.[0]; sizeFlowFill(entry.target, box?.inlineSize ?? entry.contentRect.width, box?.blockSize ?? entry.contentRect.height); })) : null;
   flowControls.forEach(control => {
     if (control.classList.contains('flow-button')) { flowResize?.observe(control); return; }
-    const iconOnly = control.matches('#theme-toggle, .contact-arrow');
+    const iconOnly = control.matches('.contact-arrow');
     const compact = control.matches('.utility-button, .project-links a');
     control.classList.add('flow-button', iconOnly ? 'flow-button--icon' : compact ? 'flow-button--compact' : 'flow-button--default');
     // Existing decorative trailing arrows are supplied by the shared effect.

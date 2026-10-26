@@ -11,12 +11,7 @@ function PortfolioFooter() {
       warm: style.getPropertyValue('--accent').trim(),
     }
   }
-  const [palette, setPalette] = React.useState(readPalette)
-  React.useEffect(() => {
-    const observer = new MutationObserver(() => setPalette(readPalette()))
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
-    return () => observer.disconnect()
-  }, [])
+  const palette = readPalette()
   return <HalftoneWordmarkFooter
     wordmark="0xsan7"
     label="0xsan7 / Santiago Jerald"

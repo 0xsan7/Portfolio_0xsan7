@@ -70,7 +70,7 @@ document.getElementById('main-nav').innerHTML = '<div class="macos-dock">' + doc
 // Render the native controls once at build time, preserving IDs and real links.
 for (const control of document.querySelectorAll('button, a.button, .project-links a, a.contact-arrow, a.command-item')) {
   if (control.classList.contains('flow-button')) continue
-  const icon = control.matches('#theme-toggle, .contact-arrow')
+  const icon = control.matches('.contact-arrow')
   const compact = control.matches('.utility-button, .project-links a')
   control.classList.add('flow-button', icon ? 'flow-button--icon' : compact ? 'flow-button--compact' : 'flow-button--default')
   if (control.matches('a.button')) control.querySelectorAll('svg').forEach(svg => svg.remove())
