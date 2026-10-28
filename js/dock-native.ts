@@ -48,6 +48,7 @@ export function initDock() {
   links.forEach((link, i) => {
     link.addEventListener('focus', () => aim(i * (config.size + config.gap) + config.size / 2))
     link.addEventListener('click', () => {
+      dock.closest('.dock-nav')?.setAttribute('data-auto-hide', '')
       const icon = link.querySelector<HTMLElement>('.dock-tile')
       if (!icon || motion.matches) return
       icon.getAnimations().forEach(animation => animation.cancel())

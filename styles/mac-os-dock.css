@@ -1,7 +1,11 @@
-/* A small bottom-edge hit area reveals the dock without tracking mouse movement. */
+/* Show navigation until its first activation, then reveal it from the bottom edge. */
 .dock-nav { position: fixed; inset: auto 0 0; z-index: 40; width: 100%; height: 12px; min-height: 0; margin: 0; padding: 0; display: flex; justify-content: center; align-items: flex-end; }
-.dock-nav > .macos-dock, .dock-nav > .dock-fallback { margin-bottom: calc(12px + env(safe-area-inset-bottom)); transform: translateY(calc(100% + 24px + env(safe-area-inset-bottom))); transition: transform 180ms ease-out; pointer-events: none; }
-.dock-nav:is(:hover,:focus-within) > .macos-dock, .dock-nav:is(:hover,:focus-within) > .dock-fallback { transform: translateY(0); pointer-events: auto; }
+.dock-nav > .macos-dock, .dock-nav > .dock-fallback { margin-bottom: calc(12px + env(safe-area-inset-bottom)); transform: translateY(0); transition: transform 180ms ease-out; pointer-events: auto; }
+.dock-nav[data-auto-hide]:not(:hover):not(:has(:focus-visible)) > .macos-dock,
+.dock-nav[data-auto-hide]:not(:hover):not(:has(:focus-visible)) > .dock-fallback {
+  transform: translateY(calc(100% + 24px + env(safe-area-inset-bottom)));
+  pointer-events: none;
+}
 .macos-dock { --dock-size: clamp(24px, calc((100vw - 48px - var(--dock-gap) * 7) / 8), 46px); --dock-gap: 6px; --dock-padding: 12px; display: flex; align-items: end; gap: var(--dock-gap); width: max-content; padding: 10px var(--dock-padding) 15px; border: 1px solid var(--border); border-radius: 21px; background: color-mix(in srgb,var(--surface) 88%,transparent); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 6px 20px #0002, inset 0 1px 0 #ffffff0c; }
 .dock-slot { --dock-scale: 1; position: relative; width: var(--dock-size); height: var(--dock-size); flex-shrink: 0; }
 .dock-link { position: absolute; bottom: 0; left: 50%; width: var(--dock-size); height: var(--dock-size); display: block; transform: translateX(-50%) scale(var(--dock-scale)); transform-origin: center bottom; border-radius: 12px; -webkit-tap-highlight-color: transparent; }
@@ -20,7 +24,7 @@
 @media (max-width: 600px) { .macos-dock { border-radius: 17px; } .dock-tile,.dock-link { border-radius: 10px; } }
 /* Touchscreens have no hover edge, so keep the compact bottom dock accessible. */
 @media (hover: none), (pointer: coarse) {
-  .dock-nav > .macos-dock, .dock-nav > .dock-fallback { transform: translateY(0); pointer-events: auto; }
+  .dock-nav[data-auto-hide] > .macos-dock, .dock-nav[data-auto-hide] > .dock-fallback { transform: translateY(0) !important; pointer-events: auto !important; }
   body { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
 }
 @media (prefers-reduced-motion: reduce) { .dock-nav > .macos-dock, .dock-nav > .dock-fallback { transition: none; } }
