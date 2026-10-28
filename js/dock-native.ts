@@ -38,6 +38,9 @@ export function initDock() {
     dock.style.setProperty('--dock-padding', `${config.padding}px`)
     target = links.map(() => 1); current.fill(1); paint()
   }
+  dock.addEventListener('pointerenter', event => {
+    if (event.pointerType === 'mouse') dock.closest('.dock-nav')?.setAttribute('data-auto-hide', '')
+  }, { passive: true })
   dock.addEventListener('pointermove', event => {
     if (event.pointerType !== 'mouse') return
     const baseline = links.length * config.size + Math.max(0, links.length - 1) * config.gap
@@ -48,7 +51,6 @@ export function initDock() {
   links.forEach((link, i) => {
     link.addEventListener('focus', () => aim(i * (config.size + config.gap) + config.size / 2))
     link.addEventListener('click', () => {
-      dock.closest('.dock-nav')?.setAttribute('data-auto-hide', '')
       const icon = link.querySelector<HTMLElement>('.dock-tile')
       if (!icon || motion.matches) return
       icon.getAnimations().forEach(animation => animation.cancel())
