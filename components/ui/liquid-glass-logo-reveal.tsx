@@ -117,7 +117,11 @@ function GlassIconReveal({
   React.useEffect(() => {
     if (!engineRef.current) return
     let cancelled = false
-    loadLogo(logo).then(
+    const engine = engineRef.current
+    engine.ready.then(ready => {
+      if (!ready) throw new Error("WebGL unavailable")
+      return loadLogo(logo, wrapRef.current?.querySelector<HTMLImageElement>("img") ?? undefined)
+    }).then(
       (data) => {
         if (cancelled) return
         engineRef.current?.setLogo(data)

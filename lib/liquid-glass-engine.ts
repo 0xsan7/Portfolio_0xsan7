@@ -92,7 +92,7 @@ interface LogoData {
 function loadImage(src: string) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const img = new Image()
-    if (!src.startsWith("data:")) img.crossOrigin = "anonymous"
+    if (new URL(src, document.baseURI).origin !== location.origin) img.crossOrigin = "anonymous"
     img.onload = () => resolve(img)
     img.onerror = () => reject(new Error("GlassIconReveal: the logo could not be loaded"))
     img.src = src
@@ -179,7 +179,9 @@ function buildSdf(canvas: HTMLCanvasElement) {
   const outer = new Float64Array(n)
   const inner = new Float64Array(n)
   for (let i = 0; i < n; i++) {
-    const a = alpha[i * 4 + 3] / 255
+    const byte = alpha[i * 4 + 3]
+    // Lossy alpha codecs can turn solid pixels into 254; keep the distance field's interior solid.
+    const a = byte >= 250 ? 1 : byte <= 5 ? 0 : byte / 255
     if (a >= 1) { outer[i] = 0; inner[i] = INF }
     else if (a <= 0) { outer[i] = INF; inner[i] = 0 }
     else {
@@ -231,10 +233,13 @@ function edt1d(grid: Float64Array, offset: number, stride: number, f: Float64Arr
 // One SDF per logo for the whole page: building it takes ~100 ms, remounts and twins reuse it.
 const logoCache = new Map<string, Promise<LogoData>>()
 
-export function loadLogo(logo: string) {
+export function loadLogo(logo: string, existingImage?: HTMLImageElement) {
   let job = logoCache.get(logo)
   if (!job) {
-    job = loadImage(logoUrl(logo)).then((img) => {
+    const image = existingImage
+      ? (existingImage.complete && existingImage.naturalWidth ? Promise.resolve(existingImage) : existingImage.decode().then(() => existingImage))
+      : loadImage(logoUrl(logo))
+    job = image.then((img) => {
       const canvas = fitToTexture(img, img.naturalWidth || TEX, img.naturalHeight || TEX)
       return { canvas, sdf: buildSdf(canvas) }
     })
@@ -464,8 +469,8 @@ void main() {
     float streak = 0.35 * uStreak * bw * mix(0.15, 1.0, cornerW) * pow(1.0 - xf, 1.5) * uOptics;
     vec2 tangent = vec2(-nOut.y, nOut.x);
     vec3 acc = vec3(0.0), wsum = vec3(0.0);
-    for (int i = 0; i < 20; i++) {
-      float lam = (float(i) + 0.5) / 20.0;
+    for (int i = 0; i < 10; i++) {
+      float lam = (float(i) + 0.5) / 10.0;
       float c = uDisp * (1.0 - 2.0 * lam);
       vec2 along = tangent * (streak * 2.0 * (fract(float(i) * 0.618034 + 0.31) - 0.5));
       float cf = uDisp * (1.0 - 2.0 * lam) * (lam > 0.5 ? 1.0 : 0.5);
@@ -541,20 +546,31 @@ void main() {
  * ------------------------------------------------------------------ */
 type Frame = ReturnType<typeof frameAt>
 
-function createRenderer(canvas: HTMLCanvasElement) {
+async function createRenderer(canvas: HTMLCanvasElement) {
   const gl = canvas.getContext("webgl2", { antialias: false, premultipliedAlpha: false })
   if (!gl) return null
+  const parallel = gl.getExtension("KHR_parallel_shader_compile")
   const compile = (type: number, src: string) => {
     const sh = gl.createShader(type)!
     gl.shaderSource(sh, src)
     gl.compileShader(sh)
-    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh) || "shader")
     return sh
   }
   const prog = gl.createProgram()!
   gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT))
   gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG))
   gl.linkProgram(prog)
+  // Let the driver compile in parallel instead of blocking a page task on status queries.
+  if (parallel) {
+    await new Promise<void>(resolve => {
+      const poll = () => {
+        if (gl.isContextLost() || gl.getProgramParameter(prog, parallel.COMPLETION_STATUS_KHR)) resolve()
+        else setTimeout(poll, 8)
+      }
+      poll()
+    })
+  } else await new Promise<void>(resolve => setTimeout(resolve, 0))
+  if (gl.isContextLost()) return null
   if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog) || "program")
   gl.useProgram(prog)
 
@@ -771,16 +787,7 @@ export function startEngine(
   canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block"
   wrap.appendChild(canvas)
 
-  let renderer: ReturnType<typeof createRenderer> = null
-  try {
-    renderer = createRenderer(canvas)
-  } catch (err) {
-    console.error(err)
-  }
-  if (!renderer) {
-    canvas.remove()
-    return null
-  }
+  let renderer: Awaited<ReturnType<typeof createRenderer>> = null
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   let logo: LogoData | null = null
@@ -794,9 +801,15 @@ export function startEngine(
   let raf = 0
   let last = 0
   let disposed = false
+  let contentWidth = 1, contentHeight = 1
 
   function tick(now: number) {
     raf = 0
+    // Cap optical rendering at 30 fps; keep wall-clock animation timing unchanged.
+    if (playing && now - last < 1000 / 30 - 1) {
+      raf = requestAnimationFrame(tick)
+      return
+    }
     const dt = Math.min(0.1, (now - last) / 1000)
     last = now
     const { settings: P, loop, speed, time: fixed } = live.current
@@ -831,8 +844,8 @@ export function startEngine(
     }
     if (dirty && logo && renderer && !lost) {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
-      const cw = canvas.clientWidth
-      const ch = canvas.clientHeight
+      const cw = contentWidth
+      const ch = contentHeight
       const w = Math.max(1, Math.round(cw * dpr))
       const h = Math.max(1, Math.round(ch * dpr))
       if (canvas.width !== w || canvas.height !== h) {
@@ -841,7 +854,7 @@ export function startEngine(
       }
       const tile = Math.min(P.tileSize, Math.min(cw, ch) / 1.75)
       renderer.render(frameAt(Math.min(time, end), P, outro), w, h, tile * dpr)
-      wrap.setAttribute("data-rendered", "")
+      if (!wrap.hasAttribute("data-rendered")) wrap.setAttribute("data-rendered", "")
       dirty = false
     }
     if (visible && playing && logo && !lost) raf = requestAnimationFrame(tick)
@@ -862,7 +875,9 @@ export function startEngine(
     }
   })
   io.observe(wrap)
-  const ro = new ResizeObserver(() => {
+  const ro = new ResizeObserver(([entry]) => {
+    contentWidth = entry.contentRect.width
+    contentHeight = entry.contentRect.height
     dirty = true
     kick()
   })
@@ -874,16 +889,25 @@ export function startEngine(
     wrap.removeAttribute("data-rendered")
     if (raf) { cancelAnimationFrame(raf); raf = 0 }
   }
+  const initializeRenderer = async () => {
+    try {
+      const next = await createRenderer(canvas)
+      if (disposed) { next?.dispose(); return false }
+      renderer = next
+      if (!renderer) { canvas.remove(); return false }
+      if (logo) renderer.setLogo(logo)
+      dirty = true
+      kick()
+      return true
+    } catch {
+      canvas.remove()
+      wrap.removeAttribute("data-rendered")
+      return false
+    }
+  }
   const onRestored = () => {
     lost = false
-    try {
-      renderer = createRenderer(canvas)
-      if (renderer && logo) renderer.setLogo(logo)
-    } catch (err) {
-      console.error(err)
-    }
-    dirty = true
-    kick()
+    void initializeRenderer()
   }
   const onVisibility = () => {
     if (document.hidden) { cancelAnimationFrame(raf); raf = 0 }
@@ -893,7 +917,9 @@ export function startEngine(
   canvas.addEventListener("webglcontextlost", onLost)
   canvas.addEventListener("webglcontextrestored", onRestored)
 
+  const ready = initializeRenderer()
   return {
+    ready,
     setLogo(data: LogoData) {
       logo = data
       renderer?.setLogo(data)

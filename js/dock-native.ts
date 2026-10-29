@@ -7,7 +7,9 @@ export function initDock() {
   const slots = [...dock.querySelectorAll<HTMLElement>('.dock-slot')]
   const links = [...dock.querySelectorAll<HTMLAnchorElement>('.dock-link')]
   const motion = matchMedia('(prefers-reduced-motion: reduce)')
-  let config = dockConfig(document.documentElement.clientWidth, links.length, motion.matches)
+  let viewportWidth = innerWidth
+  let viewportHeight = innerHeight
+  let config = dockConfig(viewportWidth, links.length, motion.matches)
   const current = links.map(() => 1)
   let target = links.map(() => 1)
   let frame = 0, last = 0
@@ -32,7 +34,9 @@ export function initDock() {
     if (!frame) { last = performance.now(); frame = requestAnimationFrame(tick) }
   }
   const resize = () => {
-    config = dockConfig(document.documentElement.clientWidth, links.length, motion.matches)
+    viewportWidth = innerWidth
+    viewportHeight = innerHeight
+    config = dockConfig(viewportWidth, links.length, motion.matches)
     dock.style.setProperty('--dock-size', `${config.size}px`)
     dock.style.setProperty('--dock-gap', `${config.gap}px`)
     dock.style.setProperty('--dock-padding', `${config.padding}px`)
@@ -44,7 +48,7 @@ export function initDock() {
   dock.addEventListener('pointermove', event => {
     if (event.pointerType !== 'mouse') return
     const baseline = links.length * config.size + Math.max(0, links.length - 1) * config.gap
-    aim(event.clientX - (document.documentElement.clientWidth / 2 - baseline / 2))
+    aim(event.clientX - (viewportWidth / 2 - baseline / 2))
   }, { passive: true })
   dock.addEventListener('pointerleave', () => aim(null))
   dock.addEventListener('focusout', event => { if (!dock.contains(event.relatedTarget as Node | null)) aim(null) })
@@ -69,12 +73,14 @@ export function initDock() {
   })
   const sections = links.map(link => document.getElementById(link.hash.slice(1))).filter((section): section is HTMLElement => !!section)
     .sort((a,b) => a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)
+  let sectionOffsets: number[] = []
+  let pageHeight = 0
   let scrollFrame = 0
   const update = () => {
     scrollFrame = 0
     let active: string | undefined = sections[0]?.id
-    for (const section of sections) if (section.getBoundingClientRect().top <= 72) active = section.id
-    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 2) active = sections.at(-1)?.id
+    sections.forEach((section, i) => { if (sectionOffsets[i] <= scrollY + 72) active = section.id })
+    if (scrollY + viewportHeight >= pageHeight - 2) active = sections.at(-1)?.id
     for (const link of links) {
       if (link.hash === `#${active}`) link.setAttribute('aria-current', 'location')
       else link.removeAttribute('aria-current')
@@ -82,9 +88,16 @@ export function initDock() {
   }
   const schedule = () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(update) }
   addEventListener('scroll', schedule, { passive: true })
-  addEventListener('resize', () => { resize(); schedule() }, { passive: true })
+  const measure = () => {
+    const position = scrollY
+    sectionOffsets = sections.map(section => section.getBoundingClientRect().top + position)
+    pageHeight = document.documentElement.scrollHeight
+    schedule()
+  }
+  addEventListener('resize', () => { measure(); resize() }, { passive: true })
   motion.addEventListener('change', resize)
   const main = document.querySelector('main')
-  if (main) new ResizeObserver(schedule).observe(main)
-  resize(); schedule()
+  if (main) new ResizeObserver(measure).observe(main)
+  document.fonts.ready.then(measure)
+  measure(); resize()
 }

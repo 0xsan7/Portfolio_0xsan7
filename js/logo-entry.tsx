@@ -9,7 +9,8 @@ if (host && !motion.matches) {
   wrap.setAttribute('role', 'img')
   wrap.setAttribute('aria-label', 'SAN / 0xsan7, Security and Blockchain')
   const image = host.querySelector('img')
-  if (image) { image.alt = ''; image.setAttribute('aria-hidden', 'true'); wrap.append(image) }
+  if (image) { image.alt = ''; image.setAttribute('aria-hidden', 'true') }
+  wrap.append(...host.childNodes)
   host.append(wrap)
   const live = { current: {
     settings: {
@@ -28,7 +29,10 @@ if (host && !motion.matches) {
     wrap.removeAttribute('data-rendered')
   }
   if (engine) {
-    loadLogo('assets/brand/san-logo.webp').then(data => {
+    engine.ready.then(async ready => {
+      if (!ready) { dispose(); return }
+      if (disposed) return
+      const data = await loadLogo('assets/brand/san-logo-420.webp', image ?? undefined)
       if (!disposed) engine.setLogo(data)
     }).catch(dispose)
     motion.addEventListener('change', () => { if (motion.matches) dispose() }, { once: true })
