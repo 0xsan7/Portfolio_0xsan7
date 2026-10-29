@@ -58,3 +58,5 @@ Keep `CNAME` set to `0xsan7.in`. GitHub Pages controls response cache lifetimes;
 Design reference and adaptation notes: `design/reference-adaptation.md`. Performance measurements: `design/performance-2026-10-25.md`.
 
 Typography uses locally hosted [DM Sans](https://fonts.google.com/specimen/DM+Sans) under the included OFL license. Stack brand logos come from [Simple Icons](https://github.com/simple-icons/simple-icons); method and component symbols use the existing Lucide set. SVGs are stored locally under `assets/stack/`.
+
+The custom SAN logo reveal uses the user-supplied logo in `assets/brand/`. Its [MIT-licensed glass engine](https://github.com/zanwei/glass-icon-reveal) lives in `lib/liquid-glass-engine.ts`, with a reusable React wrapper in `components/ui/liquid-glass-logo-reveal.tsx`. The portfolio uses a small native adapter in `js/logo-entry.tsx`, loaded after the page is ready. It plays once, pauses off-screen or in hidden tabs, and keeps the static logo when reduced motion is enabled or WebGL is unavailable.

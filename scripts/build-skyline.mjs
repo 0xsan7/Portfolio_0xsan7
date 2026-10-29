@@ -35,6 +35,7 @@ const features = await build({
     'projects-entry': 'js/projects-entry.tsx',
     'skyline-entry': 'js/skyline-entry.tsx',
     'footer-entry': 'js/footer-entry.tsx',
+    'logo-entry': 'js/logo-entry.tsx',
   },
   define: { 'process.env.NODE_ENV': '"production"' },
 })
@@ -52,6 +53,7 @@ const result = await build({
     __PROJECT_ENTRY__: JSON.stringify(featureURL('projects-entry')),
     __SKYLINE_ENTRY__: JSON.stringify(featureURL('skyline-entry')),
     __FOOTER_ENTRY__: JSON.stringify(featureURL('footer-entry')),
+    __LOGO_ENTRY__: JSON.stringify(featureURL('logo-entry')),
   },
 })
 

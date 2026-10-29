@@ -4,6 +4,7 @@ declare const __SKYLINE_CSS__: string
 declare const __PROJECT_ENTRY__: string
 declare const __SKYLINE_ENTRY__: string
 declare const __FOOTER_ENTRY__: string
+declare const __LOGO_ENTRY__: string
 
 initDock()
 
@@ -18,7 +19,7 @@ function loadComponentStyles() {
     document.head.append(link)
   })
 }
-function enhanceNear(id: string, load: () => Promise<unknown>, styles = false) {
+function enhanceNear(id: string, load: () => Promise<unknown>, styles = false, rootMargin = '400px') {
   const element = document.getElementById(id)
   if (!element) return
   const enhance = () => {
@@ -28,10 +29,20 @@ function enhanceNear(id: string, load: () => Promise<unknown>, styles = false) {
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); enhance() }
-    }, { rootMargin: '400px' })
+    }, { rootMargin })
     observer.observe(element)
   } else enhance()
 }
 enhanceNear('projects', () => import(new URL(__PROJECT_ENTRY__, import.meta.url).href))
 enhanceNear('contribution-skyline', () => import(new URL(__SKYLINE_ENTRY__, import.meta.url).href), true)
 enhanceNear('wordmark-footer', () => import(new URL(__FOOTER_ENTRY__, import.meta.url).href))
+
+// Defer the optional logo effect until the page and its primary content are ready.
+const prepareLogo = () => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return
+  const start = () => enhanceNear('logo-reveal', () => import(new URL(__LOGO_ENTRY__, import.meta.url).href), false, '0px')
+  if ('requestIdleCallback' in window) window.requestIdleCallback(start, { timeout: 2000 })
+  else setTimeout(start, 250)
+}
+if (document.readyState === 'complete') prepareLogo()
+else addEventListener('load', prepareLogo, { once: true })

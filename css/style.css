@@ -391,3 +391,17 @@ kbd { font: 9px var(--mono); color: var(--quiet); }
   .skill-group { grid-template-columns: minmax(0,1fr); gap: 10px; }
   .skill-group h3 { padding-top: 0; }
 }
+
+/* The supplied logo replaces the small circuit illustration. */
+.hero { grid-template-columns: minmax(0, 1fr) 280px; padding-bottom: 32px; }
+.hero-art { width: 100%; min-width: 0; align-self: center; }
+.logo-reveal, .glass-logo-reveal { position: relative; width: 100%; height: 280px; isolation: isolate; overflow: hidden; background: #000; }
+.glass-logo-static { position: absolute; inset: 0; margin: auto; display: block; width: 70%; height: auto; max-height: 80%; object-fit: contain; }
+.glass-logo-reveal canvas { opacity: 0; pointer-events: none; }
+.glass-logo-reveal[data-rendered] canvas { opacity: 1; }
+.glass-logo-reveal[data-rendered] .glass-logo-static { visibility: hidden; }
+@media (max-width: 680px) {
+  .hero { grid-template-columns: minmax(0,1fr); gap: 20px; }
+  .hero-art { display: block; max-width: 360px; margin: 0 auto; }
+  .logo-reveal, .glass-logo-reveal { height: 240px; }
+}
