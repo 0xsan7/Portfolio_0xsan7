@@ -38,13 +38,6 @@ const features = await build({
   },
   define: { 'process.env.NODE_ENV': '"production"' },
 })
-// Bundle the independent logo engine without shared React helper requests.
-const logoBuild = await build({
-  ...commonBuild, splitting: false,
-  entryPoints: { 'logo-entry': 'js/logo-entry.tsx' },
-})
-const logoEntry = Object.entries(logoBuild.metafile.outputs).find(([, info]) => info.entryPoint === 'js/logo-entry.tsx')?.[0]
-if (!logoEntry) throw new Error('Missing logo entry')
 function featureURL(name) {
   const output = Object.entries(features.metafile.outputs).find(([,info]) => info.entryPoint === `js/${name}.tsx`)?.[0]
   if (!output) throw new Error(`Missing feature entry: ${name}`)
@@ -59,7 +52,6 @@ const result = await build({
     __PROJECT_ENTRY__: JSON.stringify(featureURL('projects-entry')),
     __SKYLINE_ENTRY__: JSON.stringify(featureURL('skyline-entry')),
     __FOOTER_ENTRY__: JSON.stringify(featureURL('footer-entry')),
-    __LOGO_ENTRY__: JSON.stringify('./' + logoEntry.replace(/^js\//, '')),
   },
 })
 

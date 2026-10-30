@@ -98,6 +98,5 @@ export function initDock() {
   motion.addEventListener('change', resize)
   const main = document.querySelector('main')
   if (main) new ResizeObserver(measure).observe(main)
-  document.fonts.ready.then(measure)
   measure(); resize()
 }

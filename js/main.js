@@ -226,14 +226,14 @@
   });
 
   // Paint a small poster first. Start the same animation after critical loading.
-  const video = document.querySelector('[data-banner-video]');
-  if (video) {
+  document.querySelectorAll('[data-banner-video], [data-logo-video]').forEach(video => {
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     const connection = navigator.connection;
     let visible = true, scheduled = false;
     const sync = () => {
       if (!visible || document.hidden || motion.matches || connection?.saveData) { video.pause(); return; }
-      if (!video.src) video.src = video.canPlayType('video/webm; codecs="vp9"') ? video.dataset.webm : video.dataset.mp4;
+      if (video.hasAttribute('data-logo-video') && video.ended) return;
+      if (!video.src) video.src = video.dataset.webm && video.canPlayType('video/webm; codecs="vp9"') ? video.dataset.webm : video.dataset.mp4;
       video.muted = true;
       video.play().catch(() => {});
     };
@@ -245,6 +245,7 @@
     };
     video.addEventListener('playing', () => { video.dataset.playing = 'true'; });
     video.addEventListener('error', () => {
+      if (video.hasAttribute('data-logo-video')) delete video.dataset.playing;
       if (video.src && !video.src.endsWith('.mp4')) { video.src=video.dataset.mp4; sync(); }
     });
     if ('IntersectionObserver' in window) {
@@ -257,5 +258,5 @@
     document.addEventListener('visibilitychange', () => { if (scheduled) sync(); });
     motion.addEventListener('change', () => { if (motion.matches) delete video.dataset.playing; if (scheduled) sync(); });
     connection?.addEventListener?.('change', sync);
-  }
+  });
 })();

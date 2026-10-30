@@ -4,9 +4,13 @@ declare const __SKYLINE_CSS__: string
 declare const __PROJECT_ENTRY__: string
 declare const __SKYLINE_ENTRY__: string
 declare const __FOOTER_ENTRY__: string
-declare const __LOGO_ENTRY__: string
 
-initDock()
+// Initialize after layout, so the dock does not force the first page layout synchronously.
+const dockLayout = new ResizeObserver(() => {
+  dockLayout.disconnect()
+  initDock()
+})
+dockLayout.observe(document.documentElement)
 
 let componentStyles: Promise<void> | undefined
 function loadComponentStyles() {
@@ -36,13 +40,3 @@ function enhanceNear(id: string, load: () => Promise<unknown>, styles = false, r
 enhanceNear('projects', () => import(new URL(__PROJECT_ENTRY__, import.meta.url).href))
 enhanceNear('contribution-skyline', () => import(new URL(__SKYLINE_ENTRY__, import.meta.url).href), true)
 enhanceNear('wordmark-footer', () => import(new URL(__FOOTER_ENTRY__, import.meta.url).href))
-
-// Defer the optional logo effect until the page and its primary content are ready.
-const prepareLogo = () => {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return
-  const start = () => enhanceNear('logo-reveal', () => import(new URL(__LOGO_ENTRY__, import.meta.url).href), false, '0px')
-  if ('requestIdleCallback' in window) window.requestIdleCallback(start, { timeout: 2000 })
-  else setTimeout(start, 250)
-}
-if (document.readyState === 'complete') prepareLogo()
-else addEventListener('load', prepareLogo, { once: true })
